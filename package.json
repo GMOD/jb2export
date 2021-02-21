@@ -23,6 +23,7 @@
     "abortcontroller-polyfill": "^1.7.1",
     "file-saver": "^2.0.5",
     "regenerator-runtime": "^0.13.7",
-    "svg-path-generator": "^1.1.0"
+    "svg-path-generator": "^1.1.0",
+    "yargs": "^16.2.0"
   }
 }

@@ -1,0 +1,56 @@
+{
+  "name": "My session",
+  "view": {
+    "id": "linearGenomeView",
+    "type": "LinearGenomeView",
+    "offsetPx": 752150,
+    "bpPerPx": 25.084820116171613,
+    "displayedRegions": [
+      { "assemblyName": "hg38", "refName": "1", "start": 0, "end": 248956422 }
+    ],
+    "tracks": [
+      {
+        "id": "MYkD7Sl3E",
+        "type": "FeatureTrack",
+        "configuration": "ncbi_refseq_109_hg38",
+        "displays": [
+          {
+            "id": "eKHbYEqbSZ",
+            "type": "LinearBasicDisplay",
+            "height": 218,
+            "configuration": "ncbi_refseq_109_hg38-LinearBasicDisplay"
+          }
+        ]
+      },
+      {
+        "id": "RmEVOSCDv",
+        "type": "FeatureTrack",
+        "configuration": "clinGenGeneDisease",
+        "displays": [
+          {
+            "id": "sXi9Yt_n7f",
+            "type": "LinearBasicDisplay",
+            "height": 100,
+            "configuration": "clinGenGeneDisease-LinearBasicDisplay"
+          }
+        ]
+      },
+      {
+        "id": "gTxauXvlF",
+        "type": "QuantitativeTrack",
+        "configuration": "hg38.100way.phyloP100way",
+        "displays": [
+          {
+            "id": "xYlBLNTFi3",
+            "type": "LinearWiggleDisplay",
+            "height": 100,
+            "configuration": "hg38.100way.phyloP100way-LinearWiggleDisplay",
+            "selectedRendering": "",
+            "resolution": 5,
+            "constraints": {}
+          }
+        ]
+      }
+    ]
+  }
+}
