@@ -1,0 +1,28 @@
+{
+  "name": "jb2export",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Colin",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.12.17",
+    "@babel/core": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
+    "@babel/preset-react": "^7.12.13",
+    "@jbrowse/react-linear-genome-view": "^1.0.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "scripts": {
+    "build": "babel src -d dist",
+    "test": "babel src -d dist && node dist/index.js > out.svg",
+    "snap": "node dist/index.js > out.svg"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.17",
+    "abortcontroller-polyfill": "^1.7.1",
+    "file-saver": "^2.0.5",
+    "regenerator-runtime": "^0.13.7",
+    "svg-path-generator": "^1.1.0"
+  }
+}
