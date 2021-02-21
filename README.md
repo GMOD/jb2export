@@ -19,7 +19,7 @@ cd ..
 ## setup jb2export
 git clone git@github.com:cmdcolin/jb2export
 cd jb2export
-./setup_node_modules /path/to/jb2/installation
+./setup_node_modules all /path/to/jb2/installation
 yarn build
 ```
 
