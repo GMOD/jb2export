@@ -10,7 +10,7 @@ import {
 } from "@jbrowse/react-linear-genome-view";
 import { renderToSvg } from "@jbrowse/plugin-linear-genome-view";
 
-const theme = createJBrowseTheme();
+// const theme = createJBrowseTheme();
 
 const assembly = {
   name: "GRCh38",
@@ -73,9 +73,9 @@ const defaultSession = {
   view: {
     id: "linearGenomeView",
     type: "LinearGenomeView",
-    // displayedRegions: [
-    //   { assemblyName: "hg38", refName: "chr1", start: 0, end: 1000000 },
-    // ],
+    displayedRegions: [
+      { assemblyName: "hg38", refName: "chr1", start: 0, end: 1000000 },
+    ],
     tracks: [
       {
         type: "ReferenceSequenceTrack",
