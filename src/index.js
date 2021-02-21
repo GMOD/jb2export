@@ -56,15 +56,13 @@ async function renderRegion() {
     const { view } = model.session;
     const { assemblyManager } = model;
     view.setWidth(1000);
-
+    await when(
+      () =>
+        assemblyManager.allPossibleRefNames &&
+        assemblyManager.allPossibleRefNames.length &&
+        model.session.view.initialized
+    );
     if (location) {
-      await when(
-        () =>
-          assemblyManager.allPossibleRefNames &&
-          assemblyManager.allPossibleRefNames.length &&
-          model.session.view.initialized
-      );
-
       if (!model.session.view.displayedRegions.length) {
         const assemblyState = model.assemblyManager.assemblies[0];
         const region =
