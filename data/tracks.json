@@ -55,5 +55,32 @@
         "uri": "https://hgdownload.soe.ucsc.edu/gbdb/hg38/bbi/clinGen/clinGenGeneDisease.bb"
       }
     }
+  },
+  {
+    "type": "AlignmentsTrack",
+    "trackId": "skbr3.ont.sort.mod",
+    "name": "SKBR3 nanopore (CRAM)",
+    "assemblyNames": ["hg38"],
+    "adapter": {
+      "type": "CramAdapter",
+      "cramLocation": {
+        "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/GRCh38/skbr3/skbr3.ont.sort.mod.cram"
+      },
+      "craiLocation": {
+        "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/GRCh38/skbr3/skbr3.ont.sort.mod.cram.crai"
+      },
+      "sequenceAdapter": {
+        "type": "BgzipFastaAdapter",
+        "fastaLocation": {
+          "uri": "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz"
+        },
+        "faiLocation": {
+          "uri": "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz.fai"
+        },
+        "gziLocation": {
+          "uri": "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz.gzi"
+        }
+      }
+    }
   }
 ]
