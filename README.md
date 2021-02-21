@@ -41,9 +41,9 @@ node dist/index.js --assembly assembly.json --tracks tracks.json --session sessi
 
 Params
 
-- --assembly - path to a JSON file containing a jbrowse 2 assembly config
-- --tracks - path to a JSON file containing a list of jbrowse 2 track configs
-- --session - path to a JSON file containing a jbrowse 2 session config
+- --assembly - path to a JSON file containing a jbrowse 2 assembly config e.g. [data/assembly.json](data/assembly.json)
+- --tracks - path to a JSON file containing a list of jbrowse 2 track configs e.g. [data/tracks.json](data/tracks.json)
+- --session - path to a JSON file containing a jbrowse 2 session config e.g. [data/session.json](data/session.json)
 - --loc - a locstring to navigate to
 
 If needed the svg can then be manually converted to png, for example using the
