@@ -170,8 +170,10 @@ const defaultSession = {
       defaultSession,
     });
     state.session.view.setWidth(1000);
+    console.time("duration");
+    const start = +Date.now();
     console.log(await renderToSvg(state.session.view));
-    console.error("Finished rendering");
+    console.error(`Finished rendering: ${(+Date.now() - start) / 1000}s`);
   } catch (e) {
     console.error(e);
   }

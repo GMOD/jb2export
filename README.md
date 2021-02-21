@@ -2,12 +2,15 @@
 
 Static exports of JBrowse 2 rendering
 
-Currently uses the export_wiggle_svg branch
-
 ## Setup
 
-Yarn link has trouble in our repo so I manually build and copy the results over
+This example currently uses the export_wiggle_svg branch, and indeed the
+rendered output is in svg
 
+Yarn link has trouble so I manually perform builds of the @jbrowse/core and
+various plugins and manually copy the results over
+
+```
 yarn build&&rm -rf ~/jb2export/node_modules/@jbrowse/core && cp  -R dist ~/jb2export/node_modules/@jbrowse/core
 
 yarn build&&rm -rf ~/jb2export/node_modules/@jbrowse/plugin-linear-genome-view && cp  -R dist ~/jb2export/node_modules/@jbrowse/plugin-linear-genome-view
@@ -15,6 +18,7 @@ yarn build&&rm -rf ~/jb2export/node_modules/@jbrowse/plugin-linear-genome-view &
 yarn build&&rm -rf ~/jb2export/node_modules/@jbrowse/plugin-wiggle && cp  -R dist ~/jb2export/node_modules/@jbrowse/plugin-wiggle
 
 yarn build&&rm -rf ~/jb2export/node_modules/@jbrowse/plugin-svg && cp  -R dist ~/jb2export/node_modules/@jbrowse/plugin-svg
+```
 
 ## Usage
 
