@@ -1,7 +1,6 @@
 import "regenerator-runtime/runtime";
 
 import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
-global.window = {};
 import {
   createViewState,
   createJBrowseTheme,
@@ -20,16 +19,13 @@ const assembly = {
     adapter: {
       type: "BgzipFastaAdapter",
       fastaLocation: {
-        uri:
-          "http://ftp.ensembl.org/pub/release-100/fasta/homo_sapiens/dna_index/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
+        uri: "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz",
       },
       faiLocation: {
-        uri:
-          "http://ftp.ensembl.org/pub/release-100/fasta/homo_sapiens/dna_index/Homo_sapiens.GRCh38.dna.toplevel.fa.gz.fai",
+        uri: "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz.fai",
       },
       gziLocation: {
-        uri:
-          "http://ftp.ensembl.org/pub/release-100/fasta/homo_sapiens/dna_index/Homo_sapiens.GRCh38.dna.toplevel.fa.gz.gzi",
+        uri: "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz.gzi",
       },
     },
   },
@@ -46,6 +42,19 @@ const assembly = {
 };
 
 const tracks = [
+  {
+    type: "FeatureTrack",
+    trackId: "repeats_hg38",
+    name: "Repeats",
+    assemblyNames: ["hg38"],
+    category: ["Annotation"],
+    adapter: {
+      type: "BigBedAdapter",
+      bigBedLocation: {
+        uri: "https://jbrowse.org/genomes/GRCh38/repeats.bb",
+      },
+    },
+  },
   {
     type: "FeatureTrack",
     trackId: "ncbi_refseq_109_hg38",
@@ -66,6 +75,34 @@ const tracks = [
       },
     },
   },
+  {
+    type: "QuantitativeTrack",
+    trackId: "hg38.100way.phyloP100way",
+    name: "hg38.100way.phyloP100way",
+    category: ["Conservation"],
+    assemblyNames: ["hg38"],
+    adapter: {
+      type: "BigWigAdapter",
+      bigWigLocation: {
+        uri:
+          "http://hgdownload.cse.ucsc.edu/goldenpath/hg38/phyloP100way/hg38.phyloP100way.bw",
+      },
+    },
+  },
+  {
+    type: "FeatureTrack",
+    trackId: "clinGenGeneDisease",
+    name: "ClinGen Gene-Disease mapping",
+    assemblyNames: ["hg38"],
+    category: ["ClinGen"],
+    adapter: {
+      type: "BigBedAdapter",
+      bigBedLocation: {
+        uri:
+          "https://hgdownload.soe.ucsc.edu/gbdb/hg38/bbi/clinGen/clinGenGeneDisease.bb",
+      },
+    },
+  },
 ];
 
 const defaultSession = {
@@ -73,28 +110,51 @@ const defaultSession = {
   view: {
     id: "linearGenomeView",
     type: "LinearGenomeView",
+    offsetPx: 752150,
+    bpPerPx: 25.084820116171613,
     displayedRegions: [
-      { assemblyName: "hg38", refName: "chr1", start: 0, end: 1000000 },
+      { assemblyName: "hg38", refName: "1", start: 0, end: 248956422 },
     ],
     tracks: [
       {
-        type: "ReferenceSequenceTrack",
-        configuration: "GRCh38-ReferenceSequenceTrack",
-        displays: [
-          {
-            type: "LinearReferenceSequenceDisplay",
-            configuration:
-              "GRCh38-ReferenceSequenceTrack-LinearReferenceSequenceDisplay",
-          },
-        ],
-      },
-      {
+        id: "MYkD7Sl3E",
         type: "FeatureTrack",
         configuration: "ncbi_refseq_109_hg38",
         displays: [
           {
+            id: "eKHbYEqbSZ",
             type: "LinearBasicDisplay",
+            height: 218,
             configuration: "ncbi_refseq_109_hg38-LinearBasicDisplay",
+          },
+        ],
+      },
+      {
+        id: "RmEVOSCDv",
+        type: "FeatureTrack",
+        configuration: "clinGenGeneDisease",
+        displays: [
+          {
+            id: "sXi9Yt_n7f",
+            type: "LinearBasicDisplay",
+            height: 100,
+            configuration: "clinGenGeneDisease-LinearBasicDisplay",
+          },
+        ],
+      },
+      {
+        id: "gTxauXvlF",
+        type: "QuantitativeTrack",
+        configuration: "hg38.100way.phyloP100way",
+        displays: [
+          {
+            id: "xYlBLNTFi3",
+            type: "LinearWiggleDisplay",
+            height: 100,
+            configuration: "hg38.100way.phyloP100way-LinearWiggleDisplay",
+            selectedRendering: "",
+            resolution: 5,
+            constraints: {},
           },
         ],
       },
@@ -107,11 +167,11 @@ const defaultSession = {
     const state = createViewState({
       assembly,
       tracks,
-      location: "chr10:29,838,737..29,838,819",
       defaultSession,
     });
     state.session.view.setWidth(1000);
     console.log(await renderToSvg(state.session.view));
+    console.error("Finished rendering");
   } catch (e) {
     console.error(e);
   }
