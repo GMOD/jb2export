@@ -45,7 +45,7 @@ convert command from ImageMagick
     convert out.svg out.png
 
 The inkscape command line does a slightly better job in some cases too,
-particularly with the text
+particularly with the text because it handles dominant-baseline attribute
 
     inkscape --export-type png --export-filename out.png -w 2048 out.svg
 
