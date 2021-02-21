@@ -1,6 +1,7 @@
 # jb2export
 
-Static exports of JBrowse 2 rendering
+Static exports of JBrowse 2 rendering. This is a proof of concept work in
+progress using beta branches of JBrowse 2 but has some nice early results
 
 ## Setup
 
@@ -31,13 +32,19 @@ built and copied)
 First build the system with `yarn build` and generate dist/index.js, then we
 can run the command with custom json
 
+Simple
+
 ```
 # generate out.svg using specified assembly, tracks, and session files
-node dist/index.js --assembly assembly.json --tracks tracks.json --session session.json > out.svg
+node dist/index.js --assembly assembly.json --tracks tracks.json --session session.json --loc  1:70,373,677..70,488,758 > out.svg
 ```
 
-If --assembly, --tracks, or --session aren't specified it uses the files in the
-data directory
+Params
+
+- --assembly - path to a JSON file containing a jbrowse 2 assembly config
+- --tracks - path to a JSON file containing a list of jbrowse 2 track configs
+- --session - path to a JSON file containing a jbrowse 2 session config
+- --loc - a locstring to navigate to
 
 If needed the svg can then be manually converted to png, for example using the
 convert command from ImageMagick
