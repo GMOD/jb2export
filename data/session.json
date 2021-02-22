@@ -47,7 +47,7 @@
             "configuration": "hg38.100way.phyloP100way-LinearWiggleDisplay",
             "selectedRendering": "",
             "resolution": 5,
-            "constraints": {}
+            "constraints": { "max": 10, "min": -10 }
           }
         ]
       },
