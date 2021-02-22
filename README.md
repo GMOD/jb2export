@@ -3,11 +3,12 @@
 Static exports of JBrowse 2 rendering. This is a proof of concept work in
 progress using beta branches of JBrowse 2 but has some nice early results
 
+The output is currently svg which can be converted to png if needed
+
 ## Setup
 
 This example currently uses the export_wiggle_svg branch, and uses that branch
-to generate the svg outputs seen in these exports (just svg exports currently,
-no png)
+to generate the svg outputs seen in these exports
 
 ```
 ## setup jb2
