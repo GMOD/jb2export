@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
+import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 import fs from "fs";
 
-import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 import { createViewState } from "@jbrowse/react-linear-genome-view";
 import { renderToSvg } from "@jbrowse/plugin-linear-genome-view";
 import { when } from "mobx";
@@ -25,20 +25,51 @@ const argv = yargs
     description: "A locstring to navigate to",
     type: "string",
   })
+  .option("bam", {
+    description:
+      "A bam file, flag --bam can be used multiple times to specify multiple bam files",
+    type: "string",
+  })
+  .option("bamindex", {
+    description:
+      "A bai for the bam, optional, automatically inferred as .bam.bai but supply this if needed (can be used multiple times, in which case it applies to a bam flag used multiple times), can also be a csi file if needed",
+    type: "string",
+  })
+  .option("cram", {
+    description: "A cram file",
+    type: "string",
+  })
+  .option("cramindex", {
+    description:
+      "A crai for the cram, optional, automatically inferred as .cram.crai supply this if needed (can be used multiple times, in which case it applies to a bam flag used multiple times)",
+    type: "string",
+  })
+  .option("vcf", {
+    description: "A vcf or tabixed VCF",
+    type: "string",
+  })
+  .option("vcfindex", {
+    description:
+      "A tbi file for the VCF, optional, automatically inferred as .vcf.tbi if not specified, can also be a .csi",
+    type: "string",
+  })
+  .option("out", {
+    description: "File to output to. Default if not used is stdout",
+    type: "string",
+  })
   .help()
   .alias("help", "h").argv;
 
-// const theme = createJBrowseTheme();
+function read(file) {
+  return JSON.parse(fs.readFileSync(file));
+}
 
-const assembly = JSON.parse(
-  fs.readFileSync(argv.config || "data/assembly.json")
-);
-const tracks = JSON.parse(fs.readFileSync(argv.tracks || "data/tracks.json"));
-const defaultSession = JSON.parse(
-  fs.readFileSync(argv.session || "data/session.json")
-);
+const assembly = read(argv.config || "data/assembly.json");
+const tracks = read(argv.tracks || "data/tracks.json");
+const defaultSession = read(argv.session || "data/session.json");
 const location = argv.loc;
 
+//prints to stderr the time it takes to execute cb
 async function time(cb) {
   const start = +Date.now();
   const ret = await cb();
@@ -56,25 +87,27 @@ async function renderRegion() {
     const { view } = model.session;
     const { assemblyManager } = model;
     view.setWidth(1000);
-    await when(
-      () =>
+    await when(() => {
+      return (
         assemblyManager.allPossibleRefNames &&
         assemblyManager.allPossibleRefNames.length &&
         model.session.view.initialized
-    );
+      );
+    });
     if (location) {
-      if (!model.session.view.displayedRegions.length) {
-        const assemblyState = model.assemblyManager.assemblies[0];
-        const region =
-          assemblyState && assemblyState.regions && assemblyState.regions[0];
+      if (!view.displayedRegions.length) {
+        const { assemblies } = assemblyManager;
+        const [assembly] = assemblies;
+        const { regions = [] } = assembly || {};
+        const [region] = regions;
         if (region) {
-          model.session.view.setDisplayedRegions([getSnapshot(region)]);
+          view.setDisplayedRegions([getSnapshot(region)]);
         }
       }
-      model.session.view.navToLocString(location);
+      view.navToLocString(location);
     }
 
-    const svg = await time(() => renderToSvg(view));
+    const svg = await time(() => renderToSvg(view, { fullSvg: false }));
     console.log(svg);
   } catch (e) {
     console.error(e);
