@@ -57,17 +57,18 @@ const argv = yargs
     description: "File to output to. Default if not used is stdout",
     type: "string",
   })
+  .option("fullsvg", {
+    description:
+      "Use full SVG rendering with no rasterized layers, this can substantially increase filesize",
+    default: false,
+    type: "boolean",
+  })
   .help()
   .alias("help", "h").argv;
 
 function read(file) {
   return JSON.parse(fs.readFileSync(file));
 }
-
-const assembly = read(argv.config || "data/assembly.json");
-const tracks = read(argv.tracks || "data/tracks.json");
-const defaultSession = read(argv.session || "data/session.json");
-const location = argv.loc;
 
 //prints to stderr the time it takes to execute cb
 async function time(cb) {
@@ -77,41 +78,35 @@ async function time(cb) {
   return ret;
 }
 
-async function renderRegion() {
-  try {
-    const model = createViewState({
-      assembly,
-      tracks,
-      defaultSession,
-    });
-    const { view } = model.session;
-    const { assemblyManager } = model;
-    view.setWidth(1000);
-    await when(() => {
-      return (
-        assemblyManager.allPossibleRefNames &&
-        assemblyManager.allPossibleRefNames.length &&
-        model.session.view.initialized
-      );
-    });
-    if (location) {
-      if (!view.displayedRegions.length) {
-        const { assemblies } = assemblyManager;
-        const [assembly] = assemblies;
-        const { regions = [] } = assembly || {};
-        const [region] = regions;
-        if (region) {
-          view.setDisplayedRegions([getSnapshot(region)]);
-        }
-      }
-      view.navToLocString(location);
-    }
-
-    const svg = await time(() => renderToSvg(view, { fullSvg: false }));
-    console.log(svg);
-  } catch (e) {
-    console.error(e);
-  }
+export function readData(opts = {}) {
+  const assembly = read(opts.config || "data/assembly.json");
+  const tracks = read(opts.tracks || "data/tracks.json");
+  const defaultSession = read(opts.session || "data/session.json");
+  return { assembly, tracks, defaultSession };
 }
 
-renderRegion();
+export async function renderRegion(opts = {}) {
+  const model = createViewState(readData(opts));
+  const { view } = model.session;
+  const { assemblyManager } = model;
+  view.setWidth(1000);
+  await when(() => {
+    return view.initialized;
+  });
+  if (opts.loc) {
+    if (!view.displayedRegions.length) {
+      const { assemblies } = assemblyManager;
+      const [assembly] = assemblies;
+      const { regions = [] } = assembly || {};
+      const [region] = regions;
+      if (region) {
+        view.setDisplayedRegions([getSnapshot(region)]);
+      }
+    }
+    view.navToLocString(opts.loc);
+  }
+
+  return renderToSvg(view, opts);
+}
+
+time(() => renderRegion(argv)).then(console.log, console.error);

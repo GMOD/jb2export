@@ -7,16 +7,18 @@
   "devDependencies": {
     "@babel/cli": "^7.12.17",
     "@babel/core": "^7.12.17",
+    "@babel/plugin-transform-runtime": "^7.12.17",
     "@babel/preset-env": "^7.12.17",
     "@babel/preset-react": "^7.12.13",
-    "@babel/plugin-transform-runtime": "^7.12.17",
     "@jbrowse/react-linear-genome-view": "^1.0.3",
+    "jest": "^26.6.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
   "scripts": {
     "build": "babel src -d dist",
-    "test": "babel src -d dist && node dist/index.js > out.svg",
+    "test": "jest",
+    "bench": "babel src -d dist && node dist/index.js > out.svg",
     "snap": "node dist/index.js > out.svg"
   },
   "dependencies": {
