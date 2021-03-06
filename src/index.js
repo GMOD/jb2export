@@ -1,5 +1,6 @@
 import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 import fs from "fs";
+import { renderRegion } from "./renderRegion";
 
 const yargs = require("yargs");
 
@@ -63,6 +64,7 @@ yargs
   .alias("help", "h").argv;
 
 const { argv } = opts;
+console.log(argv.bam);
 
 //prints to stderr the time it takes to execute cb
 async function time(cb) {

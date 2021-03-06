@@ -17,8 +17,16 @@ function shortid() {
 }
 
 export function readData(opts) {
-  const { assembly, config, tracks, session, fasta, refAliases, bam } = opts;
-  console.log({ bam });
+  const {
+    assembly,
+    config,
+    tracks,
+    session,
+    fasta,
+    refAliases,
+    bam,
+    cram,
+  } = opts;
 
   const assemblyData =
     assembly && fs.existsSync(assembly) ? read(assembly) : undefined;
@@ -72,7 +80,7 @@ export function readData(opts) {
 
   if (tracksData) {
     configData.tracks = tracksData;
-  } else {
+  } else if (!configData.tracks) {
     configData.tracks = [];
   }
 
@@ -88,6 +96,24 @@ export function readData(opts) {
           type: "BamAdapter",
           bamLocation: makeLocation(bam),
           index: { type: "BAI", location: makeLocation(bam + ".bai") },
+          sequenceAdapter: configData.assembly.sequence.adapter,
+        },
+      },
+    ];
+  }
+  if (cram) {
+    configData.tracks = [
+      ...configData.tracks,
+      {
+        type: "AlignmentsTrack",
+        trackId: path.basename(cram),
+        name: path.basename(cram),
+        assemblyNames: [configData.assembly.name],
+        adapter: {
+          type: "CramAdapter",
+          cramLocation: makeLocation(cram),
+          craiLocation: makeLocation(cram + ".crai"),
+          sequenceAdapter: configData.assembly.sequence.adapter,
         },
       },
     ];
@@ -102,7 +128,7 @@ export function readData(opts) {
 
 export async function renderRegion(opts = {}) {
   const model = createViewState(readData(opts));
-  const { loc, bam } = opts;
+  const { loc, bam, cram } = opts;
   const { view } = model.session;
   const { assemblyManager } = model;
   view.setWidth(1000);
@@ -124,6 +150,9 @@ export async function renderRegion(opts = {}) {
   }
   if (bam) {
     view.showTrack(path.basename(bam));
+  }
+  if (cram) {
+    view.showTrack(path.basename(cram));
   }
 
   return renderToSvg(view, opts);
