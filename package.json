@@ -18,8 +18,8 @@
   "scripts": {
     "build": "babel src -d dist",
     "test": "jest",
-    "bench": "babel src -d dist && node dist/index.js > out.svg",
-    "snap": "node dist/index.js > out.svg"
+    "snap": "node dist/index.js --config data/config.json > out.svg",
+    "snapsvg": "node dist/index.js --config data/config.json --fullSvg > out.svg"
   },
   "dependencies": {
     "abortcontroller-polyfill": "^1.7.1",

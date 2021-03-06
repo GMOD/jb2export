@@ -7,58 +7,70 @@ The output is currently svg which can be converted to png if needed
 
 ## Setup
 
-This example currently uses the export_wiggle_svg branch, and uses that branch
-to generate the svg outputs seen in these exports
+Note that this is not yet published to NPM but when it is you can install via
 
-```
-## setup jb2
-git clone https://github.com/GMOD/jbrowse-components
-git checkout export_svg_wiggle
-yarn
-cd ..
-
-## setup jb2export
-git clone git@github.com:cmdcolin/jb2export
-cd jb2export
-./setup_node_modules all /path/to/jb2/installation
-yarn build
+```bash
+npm install -g jb2export
 ```
 
-The setup_node_modules performs builds of the plugins on the export_svg_wiggle
-branch and copies them over (`yarn link` doesn't work well so they are manually
-built and copied)
+Then you will have a command `jb2export` that can be used.
+
+To use it now, see [developer guide](DEVELOPER.md) for details
 
 ## Usage
 
 First build the system with `yarn build` and generate dist/index.js, then we
 can run the command with custom json
 
-Simple
+Simple invocation using assembly, tracks, and session JSON files
 
-```
+```bash
 # generate out.svg using specified assembly, tracks, and session files
-node dist/index.js --assembly assembly.json --tracks tracks.json --session session.json --loc  1:70,373,677..70,488,758 > out.svg
+jb2export \
+  --assembly assembly.json \
+  --tracks tracks.json
+  --session  session.json \
+  --loc  1:70,373,677..70,488,758 > out.svg
 ```
 
 Params
 
-- --assembly - path to a JSON file containing a jbrowse 2 assembly config e.g. [data/assembly.json](data/assembly.json)
-- --tracks - path to a JSON file containing a list of jbrowse 2 track configs e.g. [data/tracks.json](data/tracks.json)
-- --session - path to a JSON file containing a jbrowse 2 session config e.g. [data/session.json](data/session.json)
+- --assembly - path to a JSON file containing a jbrowse 2 assembly config e.g.
+  [data/assembly.json](data/assembly.json)
+- --tracks - path to a JSON file containing a list of jbrowse 2 track configs
+  e.g. [data/tracks.json](data/tracks.json)
+- --session - path to a JSON file containing a jbrowse 2 session config e.g.
+  [data/session.json](data/session.json)
+- --config - path to a JSON file containing a full jbrowse 2 config e.g.
+  [data/config.json](data/config.json)
 - --loc - a locstring to navigate to
 
-If needed the svg can then be manually converted to png, for example using the
-convert command from ImageMagick
+## Convert to PNG
 
-    convert out.svg out.png
+These should all aim to convert the SVG to PNG, using a 2048px width (height
+inferred) in all examples. The ImageMagick `convert` command currently gives
+some bad text placement but other examples look ok
 
-The inkscape command line does a slightly better job in some cases too,
-particularly with the text because it handles dominant-baseline attribute
+The examples should also be loadable in Adobe Illustrator or Inkscape
 
-    inkscape --export-type png --export-filename out.png -w 2048 out.svg
+```
+  ## with inkscape
+  sudo apt install inkscape
+  inkscape --export-type png --export-filename out.png -w 2048 out.svg
+  ## with librsvg
+  sudo apt install librsvg2-bin
+  rsvg-convert -w 2048 out.svg -o out.png
+  ## with imagemagick
+  sudo apt install imagemagick
+  convert -size 2048x out.svg out.png
+```
 
-The screenshot below uses inkscape
+The example below generated from SVG with Inkscape
 
 ## Example
 
 ![](img/1.png)
+
+```
+
+```
