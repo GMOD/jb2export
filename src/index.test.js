@@ -45,8 +45,8 @@ test("renders volvox --fasta, --bam, --cram, --vcfgz, --bigwig args", async () =
     bedgz: ["data/volvox/volvox-bed12.bed.gz"],
     loc: "ctgA:1000-2000",
   });
+  // can't do a snapshot test here, slightly inconsistent results(?)
   fs.writeFileSync("test/svg_from_volvox_fasta_and_bam.svg", result);
-  // can't do a snapshot test here...inconsistent
   expect(result).toBeTruthy();
 }, 20000);
 
@@ -59,6 +59,5 @@ xtest("renders --hic", async () => {
     loc: "1:2,000,000-10,000,000",
   });
   fs.writeFileSync("test/svg_from_human_hic.svg", result);
-  // can't do a snapshot test here...inconsistent
   expect(result).toBeTruthy();
 }, 20000);

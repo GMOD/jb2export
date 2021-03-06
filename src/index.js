@@ -82,8 +82,9 @@ yargs
 
   // other
   .option("out", {
-    description: "File to output to. Default if not used is stdout",
+    description: "File to output to. Default: out.svg",
     type: "string",
+    default: "out.svg",
   })
   .option("fullSvg", {
     description:
@@ -95,7 +96,6 @@ yargs
   .alias("help", "h").argv;
 
 const { argv } = opts;
-console.log(argv.bam);
 
 //prints to stderr the time it takes to execute cb
 async function time(cb) {
