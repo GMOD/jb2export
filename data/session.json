@@ -16,9 +16,9 @@
         "displays": [
           {
             "id": "eKHbYEqbSZ",
-            "type": "LinearFeatureDisplay",
+            "type": "LinearBasicDisplay",
             "height": 218,
-            "configuration": "ncbi_refseq_109_hg38-LinearFeatureDisplay"
+            "configuration": "ncbi_refseq_109_hg38-LinearBasicDisplay"
           }
         ]
       },
@@ -29,9 +29,9 @@
         "displays": [
           {
             "id": "sXi9Yt_n7f",
-            "type": "LinearFeatureDisplay",
+            "type": "LinearBasicDisplay",
             "height": 100,
-            "configuration": "clinGenGeneDisease-LinearFeatureDisplay"
+            "configuration": "clinGenGeneDisease-LinearBasicDisplay"
           }
         ]
       },
