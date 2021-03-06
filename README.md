@@ -29,14 +29,16 @@ samtools index yourfile.bam # generates yourfile.bam.bai
 jb2export --fasta yourfile.fa --bam yourfile.bam --loc 1:1,000,000-1,001,000
 
 
-## use some remote files, and a refNameAliases to smooth over refname differences
-## e.g. fasta contains 1 for chr1, and bigbed contains chr1
+## use some remote files, remote is auto-inferred from starting with http
+## also uses --aliases to smooth over refname differences
+## e.g. fasta contains 1 for chr1, and bigbed contains chr1, gff contains NC_000001.10, etc.
 ## also note this is a bgzipped fasta, autoinferred based on file extension
 jb2export --fasta https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz \
   --aliases https://s3.amazonaws.com/jbrowse.org/genomes/hg19/hg19_aliases.txt  \
   --bigbed https://hgdownload.soe.ucsc.edu/gbdb/hg19/bbi/clinvar/clinvarMain.bb \
   --gffgz https://s3.amazonaws.com/jbrowse.org/genomes/hg19/ncbi_refseq/GRCh37_latest_genomic.sort.gff.gz \
-  --loc 1:48,683,542..48,707,531
+  --bigwig https://s3.amazonaws.com/jbrowse.org/genomes/hg19/reads_lr_skbr3.fa_ngmlr-0.2.3_mapped.bam.regions.bw \
+  --loc 1:48,683,542..49,707,531
 ```
 
 ## Usage

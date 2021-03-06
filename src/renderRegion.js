@@ -20,7 +20,7 @@ export function readData(opts) {
     tracks,
     session,
     fasta,
-    refAliases,
+    aliases,
     bam,
     cram,
     bigwig,
@@ -64,11 +64,11 @@ export function readData(opts) {
         },
       },
     };
-    if (refAliases) {
-      configData.assembly.refNameAlaises = {
+    if (aliases) {
+      configData.assembly.refNameAliases = {
         adapter: {
           type: "RefNameAliasAdapter",
-          location: makeLocation(refAliases),
+          location: makeLocation(aliases),
         },
       };
     }
@@ -157,7 +157,6 @@ export function readData(opts) {
   }
 
   if (gffgz) {
-    console.log({ gffgz });
     configData.tracks = [
       ...configData.tracks,
       ...gffgz.map((file) => ({
