@@ -37,6 +37,8 @@ test("renders volvox --fasta and --bam args", async () => {
     fasta: "data/volvox/volvox.fa",
     bam: "data/volvox/volvox-sorted.bam",
     cram: "data/volvox/volvox-sorted.cram",
+    bigwig: "data/volvox/volvox-sorted.bam.coverage.bw",
+    vcfgz: "data/volvox/volvox.filtered.vcf.gz",
     loc: "ctgA:1000-2000",
   });
   fs.writeFileSync("test/svg_from_volvox_fasta_and_bam.svg", result);

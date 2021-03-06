@@ -42,6 +42,11 @@ yargs
       "A bam file, flag --bam can be used multiple times to specify multiple bam files",
     type: "string",
   })
+  .option("bigwig", {
+    description:
+      "A bigwig file, the --bigwig flag can be used multiple times to specify multiple bigwig files",
+    type: "string",
+  })
   .option("cram", {
     description: "A cram file",
     type: "string",

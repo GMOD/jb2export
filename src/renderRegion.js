@@ -26,6 +26,9 @@ export function readData(opts) {
     refAliases,
     bam,
     cram,
+    bigwig,
+    vcfgz,
+    gffgz,
   } = opts;
 
   const assemblyData =
@@ -118,6 +121,40 @@ export function readData(opts) {
       },
     ];
   }
+  if (bigwig) {
+    configData.tracks = [
+      ...configData.tracks,
+      {
+        type: "QuantitativeTrack",
+        trackId: path.basename(bigwig),
+        name: path.basename(bigwig),
+        assemblyNames: [configData.assembly.name],
+        adapter: {
+          type: "BigWigAdapter",
+          bigWigLocation: makeLocation(bigwig),
+        },
+      },
+    ];
+  }
+
+  if (vcfgz) {
+    configData.tracks = [
+      ...configData.tracks,
+      {
+        type: "VariantTrack",
+        trackId: path.basename(vcfgz),
+        name: path.basename(vcfgz),
+        assemblyNames: [configData.assembly.name],
+        adapter: {
+          type: "VcfTabixAdapter",
+          vcfGzLocation: makeLocation(vcfgz),
+          index: {
+            location: makeLocation(vcfgz + ".tbi"),
+          },
+        },
+      },
+    ];
+  }
 
   if (sessionData) {
     configData.defaultSession = sessionData;
@@ -128,7 +165,7 @@ export function readData(opts) {
 
 export async function renderRegion(opts = {}) {
   const model = createViewState(readData(opts));
-  const { loc, bam, cram } = opts;
+  const { loc, bam, cram, bigwig, vcfgz } = opts;
   const { view } = model.session;
   const { assemblyManager } = model;
   view.setWidth(1000);
@@ -148,12 +185,8 @@ export async function renderRegion(opts = {}) {
     }
     view.navToLocString(loc);
   }
-  if (bam) {
-    view.showTrack(path.basename(bam));
-  }
-  if (cram) {
-    view.showTrack(path.basename(cram));
-  }
+  const tracks = [bam, cram, bigwig, vcfgz];
+  tracks.forEach((track) => view.showTrack(path.basename(track)));
 
   return renderToSvg(view, opts);
 }
