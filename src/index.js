@@ -37,24 +37,50 @@ yargs
       "Supply aliases for the assembly, e.g. mapping of 1 to chr1. Tab separated file where column 1 matches the names from the FASTA",
     type: "string",
   })
+
+  // track types
   .option("bam", {
     description:
       "A bam file, flag --bam can be used multiple times to specify multiple bam files",
-    type: "string",
+    type: "array",
   })
   .option("bigwig", {
     description:
       "A bigwig file, the --bigwig flag can be used multiple times to specify multiple bigwig files",
-    type: "string",
+    type: "array",
   })
   .option("cram", {
-    description: "A cram file",
-    type: "string",
+    description:
+      "A cram file, the --cram flag can be used multiple times to specify multiple cram files",
+    type: "array",
   })
   .option("vcfgz", {
-    description: "A vcf or tabixed VCF",
-    type: "string",
+    description:
+      "A tabixed VCF, the --vcfgz flag can be used multiple times to specify multiple vcfgz files",
+    type: "array",
   })
+  .option("gffgz", {
+    description:
+      "A tabixed GFF, the --gffgz can be used multiple times to specify multiple gffgz files",
+    type: "array",
+  })
+  .option("hic", {
+    description:
+      "A .hic file, the --hic can be used multiple times to specify multiple hic files",
+    type: "array",
+  })
+  .option("bigbed", {
+    description:
+      "A .bigBed file, the --bigbed can be used multiple times to specify multiple bigbed files",
+    type: "array",
+  })
+  .option("bedgz", {
+    description:
+      "A bed tabix file, the --bedgz can be used multiple times to specify multiple bedtabix files",
+    type: "array",
+  })
+
+  // other
   .option("out", {
     description: "File to output to. Default if not used is stdout",
     type: "string",

@@ -32,16 +32,33 @@ test("renders a region with --session, --tracks, and --assembly args", async () 
   expect(hashCode(result)).toMatchSnapshot();
 }, 10000);
 
-test("renders volvox --fasta and --bam args", async () => {
+test("renders volvox --fasta, --bam, --cram, --vcfgz, --bigwig args", async () => {
+  console.error = jest.fn();
   const result = await renderRegion({
     fasta: "data/volvox/volvox.fa",
-    bam: "data/volvox/volvox-sorted.bam",
-    cram: "data/volvox/volvox-sorted.cram",
-    bigwig: "data/volvox/volvox-sorted.bam.coverage.bw",
-    vcfgz: "data/volvox/volvox.filtered.vcf.gz",
+    bam: ["data/volvox/volvox-sorted.bam"],
+    cram: ["data/volvox/volvox-sorted.cram"],
+    bigwig: ["data/volvox/volvox-sorted.bam.coverage.bw"],
+    vcfgz: ["data/volvox/volvox.filtered.vcf.gz"],
+    gffgz: ["data/volvox/volvox.sort.gff3.gz"],
+    bigbed: ["data/volvox/volvox.bb"],
+    bedgz: ["data/volvox/volvox-bed12.bed.gz"],
     loc: "ctgA:1000-2000",
   });
   fs.writeFileSync("test/svg_from_volvox_fasta_and_bam.svg", result);
+  // can't do a snapshot test here...inconsistent
+  expect(result).toBeTruthy();
+}, 20000);
+
+xtest("renders --hic", async () => {
+  const result = await renderRegion({
+    fasta: "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz",
+    hic: [
+      "https://s3.amazonaws.com/igv.broadinstitute.org/data/hic/intra_nofrag_30.hic",
+    ],
+    loc: "1:2,000,000-10,000,000",
+  });
+  fs.writeFileSync("test/svg_from_human_hic.svg", result);
   // can't do a snapshot test here...inconsistent
   expect(result).toBeTruthy();
 }, 20000);
