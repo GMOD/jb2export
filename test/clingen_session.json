@@ -16,9 +16,9 @@
         "displays": [
           {
             "id": "sXi9Yt_n7f",
-            "type": "LinearFeatureDisplay",
+            "type": "LinearBasicDisplay",
             "height": 100,
-            "configuration": "clinGenGeneDisease-LinearFeatureDisplay"
+            "configuration": "clinGenGeneDisease-LinearBasicDisplay"
           }
         ]
       }

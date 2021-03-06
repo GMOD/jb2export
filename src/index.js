@@ -1,13 +1,9 @@
-import "regenerator-runtime/runtime";
 import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 import fs from "fs";
 
-import { createViewState } from "@jbrowse/react-linear-genome-view";
-import { renderToSvg } from "@jbrowse/plugin-linear-genome-view";
-import { when } from "mobx";
 const yargs = require("yargs");
 
-const argv = yargs;
+const opts = yargs;
 yargs
   .command("jb2export", "Creates a jbrowse 2 image snapshot")
   .option("config", {
@@ -66,9 +62,7 @@ yargs
   .help()
   .alias("help", "h").argv;
 
-function read(file) {
-  return JSON.parse(fs.readFileSync(file));
-}
+const { argv } = opts;
 
 //prints to stderr the time it takes to execute cb
 async function time(cb) {
@@ -78,56 +72,9 @@ async function time(cb) {
   return ret;
 }
 
-export function readData(opts) {
-  const { assembly, config, tracks, session } = opts.argv;
-
-  const assemblyData =
-    assembly && fs.existsSync(assembly) ? read(assembly) : undefined;
-  const tracksData = tracks ? read(tracks) : undefined;
-  const sessionData = session ? read(session) : undefined;
-  const configData = config ? read(config) : {};
-
-  // use assembly from file, or select assemblyName from config
-  if (assemblyData) {
-    configData.assembly = assemblyData;
-  } else {
-    configData.assembly = assembly
-      ? configData.assemblies.find((asm) => {
-          asm.name === assembly;
-        })
-      : configData.assemblies[0];
-  }
-
-  if (tracksData) {
-    configData.tracks = tracksData;
-  }
-  if (sessionData) {
-    configData.defaultSession = sessionData;
-  }
-  return configData;
-}
-
-export async function renderRegion(opts = {}) {
-  const model = createViewState(readData(opts));
-  const { view } = model.session;
-  const { assemblyManager } = model;
-  view.setWidth(1000);
-  await when(() => view.initialized);
-  if (opts.loc) {
-    const assembly = assemblyManager.assemblies[0];
-    const region = assembly.regions[0];
-    if (region) {
-      view.setDisplayedRegions([getSnapshot(region)]);
-    }
-    view.navToLocString(opts.loc);
-  }
-
-  return renderToSvg(view, opts);
-}
-
 time(() => renderRegion(argv)).then((result) => {
   if (argv.out) {
-    fs.writeFileSync(result, argv.out);
+    fs.writeFileSync(argv.out, result);
   } else {
     process.stdout.write(result);
   }
