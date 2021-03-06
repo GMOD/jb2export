@@ -17,6 +17,28 @@ Then you will have a command `jb2export` that can be used.
 
 To use it now, see [developer guide](DEVELOPER.md) for details
 
+## Example usages
+
+```bash
+## prepare local files
+samtools faidx yourfile.fa # generates yourfile.fa.fai
+samtools index yourfile.bam # generates yourfile.bam.bai
+
+
+## simple rendering of a your local files
+jb2export --fasta yourfile.fa --bam yourfile.bam --loc 1:1,000,000-1,001,000
+
+
+## use some remote files, and a refNameAliases to smooth over refname differences
+## e.g. fasta contains 1 for chr1, and bigbed contains chr1
+## also note this is a bgzipped fasta, autoinferred based on file extension
+jb2export --fasta https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz \
+  --aliases https://s3.amazonaws.com/jbrowse.org/genomes/hg19/hg19_aliases.txt  \
+  --bigbed https://hgdownload.soe.ucsc.edu/gbdb/hg19/bbi/clinvar/clinvarMain.bb \
+  --gffgz https://s3.amazonaws.com/jbrowse.org/genomes/hg19/ncbi_refseq/GRCh37_latest_genomic.sort.gff.gz \
+  --loc 1:48,683,542..48,707,531
+```
+
 ## Usage
 
 First build the system with `yarn build` and generate dist/index.js, then we

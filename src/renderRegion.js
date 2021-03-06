@@ -157,6 +157,7 @@ export function readData(opts) {
   }
 
   if (gffgz) {
+    console.log({ gffgz });
     configData.tracks = [
       ...configData.tracks,
       ...gffgz.map((file) => ({
@@ -255,7 +256,7 @@ export async function renderRegion(opts = {}) {
   }
   const tracks = [bam, cram, bigwig, vcfgz, hic, bigbed, bedgz, gffgz].flat();
   tracks
-    .filter((f) => !!f)
+    .filter((f) => !!f && !!f.trim())
     .forEach((track) => view.showTrack(path.basename(track)));
 
   return renderToSvg(view, opts);
