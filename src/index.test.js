@@ -32,7 +32,7 @@ test("renders a region with --session, --tracks, and --assembly args", async () 
   expect(hashCode(result)).toMatchSnapshot();
 }, 10000);
 
-test("renders volvox --fasta, --bam, --cram, --vcfgz, --bigwig args", async () => {
+test("renders volvox with variety of args", async () => {
   console.error = jest.fn();
   const result = await renderRegion({
     fasta: "data/volvox/volvox.fa",
@@ -49,6 +49,30 @@ test("renders volvox --fasta, --bam, --cram, --vcfgz, --bigwig args", async () =
   fs.writeFileSync("test/svg_from_volvox_fasta_and_bam.svg", result);
   expect(result).toBeTruthy();
 }, 20000);
+
+test("configtracks arg", async () => {
+  const result = await renderRegion({
+    config: "data/config.json",
+    configtracks: ["ncbi_refseq_109_hg38"],
+    assembly: "GRCh38",
+    loc: "chr1:50,000-100,000",
+  });
+  // can't do a snapshot test here, slightly inconsistent results(?)
+  fs.writeFileSync("test/svg_configtracks_simple.svg", result);
+  expect(result).toBeTruthy();
+}, 30000);
+
+test("configtracks arg 2", async () => {
+  const result = await renderRegion({
+    config: "data/config.json",
+    configtracks: ["hg00096_lowcov"],
+    assembly: "hg19",
+    loc: "chr1:50,000-100,000",
+  });
+  // can't do a snapshot test here, slightly inconsistent results(?)
+  fs.writeFileSync("test/svg_configtracks_bam.svg", result);
+  expect(result).toBeTruthy();
+}, 30000);
 
 xtest("renders --hic", async () => {
   const result = await renderRegion({

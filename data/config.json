@@ -27,6 +27,34 @@
           }
         }
       }
+    },
+    {
+      "name": "hg19",
+      "aliases": ["GRCh37"],
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "Pd8Wh30ei9R",
+        "adapter": {
+          "type": "BgzipFastaAdapter",
+          "fastaLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz"
+          },
+          "faiLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz.fai"
+          },
+          "gziLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz.gzi"
+          }
+        }
+      },
+      "refNameAliases": {
+        "adapter": {
+          "type": "RefNameAliasAdapter",
+          "location": {
+            "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/hg19/hg19_aliases.txt"
+          }
+        }
+      }
     }
   ],
   "tracks": [
@@ -111,6 +139,50 @@
           "gziLocation": {
             "uri": "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz.gzi"
           }
+        }
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "clinvar_cnv_hg19",
+      "name": "ClinVar CNV (UCSC)",
+      "assemblyNames": ["hg19"],
+      "category": ["Annotation"],
+      "adapter": {
+        "type": "BigBedAdapter",
+        "bigBedLocation": {
+          "uri": "https://hgdownload.soe.ucsc.edu/gbdb/hg19/bbi/clinvar/clinvarCnv.bb"
+        }
+      }
+    },
+    {
+      "type": "AlignmentsTrack",
+      "trackId": "hg00096_lowcov",
+      "name": "HG00096 Illumina low coverage",
+      "assemblyNames": ["hg19"],
+      "category": ["1000 genomes"],
+      "adapter": {
+        "type": "BamAdapter",
+        "bamLocation": {
+          "uri": "https://s3.amazonaws.com/1000genomes/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam"
+        },
+        "index": {
+          "location": {
+            "uri": "https://s3.amazonaws.com/1000genomes/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam.bai"
+          }
+        }
+      }
+    },
+    {
+      "type": "QuantitativeTrack",
+      "trackId": "nanopore_ultralong_cram_coverage",
+      "name": "HG002 Nanopore ultralong coverage",
+      "assemblyNames": ["hg19"],
+      "category": ["GIAB"],
+      "adapter": {
+        "type": "BigWigAdapter",
+        "bigWigLocation": {
+          "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/hg19/ultra-long-ont_hs37d5_phased.bam.regions.bw"
         }
       }
     }

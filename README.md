@@ -37,21 +37,15 @@ jb2export --fasta https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz \
   --bigbed https://hgdownload.soe.ucsc.edu/gbdb/hg19/bbi/clinvar/clinvarMain.bb \
   --gffgz https://s3.amazonaws.com/jbrowse.org/genomes/hg19/ncbi_refseq/GRCh37_latest_genomic.sort.gff.gz \
   --bigwig https://s3.amazonaws.com/jbrowse.org/genomes/hg19/reads_lr_skbr3.fa_ngmlr-0.2.3_mapped.bam.regions.bw \
-  --loc 1:48,683,542..49,707,531
+  --loc 1:48,683,542..48,907,531
 
 
-## alternate invocation style: use files e.g. assembly.json, session.json,
-## tracks.json, see data folder for examples of this
-jb2export \
-  --assembly assembly.json \
-  --tracks tracks.json
-  --session  session.json \
-  --loc  1:70,373,677..70,488,758 > out.svg
+## another alternative invocation style, specify trackLabel from the config.json
+jb2export --config data/config.json \
+  --assembly hg19
+  --configtracks hg00096_highcov clinvar_cnv_hg19 \
+  --loc 1:1,000,000-1,100,000
 
-
-## another alternative invocation style, specify a config.json, and use
-## assembly name for --assembly, and also allow local files
-jb2export --config config.json --assembly hg19 --bam yourfile.bam --loc 1:1,000-2,000
 ```
 
 ## Params
@@ -59,7 +53,8 @@ jb2export --config config.json --assembly hg19 --bam yourfile.bam --loc 1:1,000-
 ### Assembly
 
 - --fasta - filename or http(s) URL for a indexed or bgzip indexed FASTA file
-- --aliases - tab separated "refName aliases" with column 1 matching the FASTA, and other columns being aliases
+- --aliases - tab separated "refName aliases" with column 1 matching the FASTA,
+  and other columns being aliases
 
 ### Track params
 

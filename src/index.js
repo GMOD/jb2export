@@ -39,6 +39,10 @@ yargs
   })
 
   // track types
+  .option("configtracks", {
+    description: "A list of track labels from a config file",
+    type: "array",
+  })
   .option("bam", {
     description:
       "A bam file, flag --bam can be used multiple times to specify multiple bam files",
@@ -93,6 +97,7 @@ yargs
     type: "boolean",
   })
   .help()
+  .demandCommand(1, "")
   .alias("help", "h").argv;
 
 const { argv } = opts;

@@ -74,8 +74,8 @@ export function readData(opts) {
     }
   }
 
-  // else throw
-  else {
+  // throw if still no assembly
+  if (!configData.assembly) {
     throw new Error(
       "no assembly specified, --assembly can accept an assembly name to look for in the --config file supplied, or if --config is not used, --assembly can be a path to a JSON file"
     );
@@ -224,6 +224,10 @@ export function readData(opts) {
     ];
   }
 
+  // don't use defaultSession from config.json file, can result in assembly name confusion
+  delete configData.defaultSession;
+
+  // only allow an external manually specified session
   if (sessionData) {
     configData.defaultSession = sessionData;
   }
@@ -233,7 +237,19 @@ export function readData(opts) {
 
 export async function renderRegion(opts = {}) {
   const model = createViewState(readData(opts));
-  const { loc, bam, cram, bigwig, vcfgz, hic, bigbed, bedgz, gffgz } = opts;
+  const {
+    loc,
+    bam,
+    cram,
+    bigwig,
+    vcfgz,
+    hic,
+    bigbed,
+    bedgz,
+    gffgz,
+    configtracks = [],
+  } = opts;
+
   const { view } = model.session;
   const { assemblyManager } = model;
   view.setWidth(1000);
@@ -246,7 +262,6 @@ export async function renderRegion(opts = {}) {
   });
   if (loc) {
     const assembly = assemblyManager.assemblies[0];
-
     const region = assembly.regions[0];
     if (region) {
       view.setDisplayedRegions([getSnapshot(region)]);
@@ -254,9 +269,14 @@ export async function renderRegion(opts = {}) {
     view.navToLocString(loc);
   }
   const tracks = [bam, cram, bigwig, vcfgz, hic, bigbed, bedgz, gffgz].flat();
+
+  // convention: path.basename
   tracks
     .filter((f) => !!f && !!f.trim())
     .forEach((track) => view.showTrack(path.basename(track)));
+
+  //convention: just trackIDs here
+  configtracks.forEach((track) => view.showTrack(track));
 
   return renderToSvg(view, opts);
 }
