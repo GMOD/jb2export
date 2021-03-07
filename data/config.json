@@ -72,6 +72,34 @@
       }
     },
     {
+      "type": "AlignmentsTrack",
+      "trackId": "hg002_cram",
+      "name": "HG002 CRAM nanopore+whatshap",
+      "assemblyNames": ["hg19"],
+      "category": ["GIAB"],
+      "adapter": {
+        "type": "CramAdapter",
+        "cramLocation": {
+          "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/hg19/hg002/HG002_ONTrel2_16x_RG_HP10xtrioRTG.cram"
+        },
+        "craiLocation": {
+          "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/hg19/hg002/HG002_ONTrel2_16x_RG_HP10xtrioRTG.cram.crai"
+        },
+        "sequenceAdapter": {
+          "type": "BgzipFastaAdapter",
+          "fastaLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz"
+          },
+          "faiLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz.fai"
+          },
+          "gziLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz.gzi"
+          }
+        }
+      }
+    },
+    {
       "type": "FeatureTrack",
       "trackId": "ncbi_refseq_109_hg38",
       "name": "NCBI RefSeq (GFF3Tabix)",

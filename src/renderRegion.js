@@ -2,7 +2,7 @@ import "regenerator-runtime/runtime";
 import { createViewState } from "@jbrowse/react-linear-genome-view";
 import { getSnapshot } from "mobx-state-tree";
 import { renderToSvg } from "@jbrowse/plugin-linear-genome-view";
-import { when, transaction } from "mobx";
+import { when } from "mobx";
 import path from "path";
 import fs from "fs";
 
@@ -285,30 +285,54 @@ export async function renderRegion(opts = {}) {
     }
     view.navToLocString(loc);
   }
-  const tracks = [bam, cram, bigwig, vcfgz, hic, bigbed, bedgz, gffgz].flat();
+  const tracks = [
+    bam,
+    cram,
+    bigwig,
+    vcfgz,
+    hic,
+    bigbed,
+    bedgz,
+    gffgz,
+    configtracks,
+  ].flat();
 
-  // convention: path.basename
   let currentTrack;
+
+  function process(track, extra = () => {}) {
+    // apply height to any track
+    if (track.startsWith("height:")) {
+      const [, height] = track.split(":");
+      currentTrack.displays[0].setHeight(+height);
+    }
+
+    // apply sort to pileup
+    else if (track.startsWith("sort:")) {
+      const [, type, tag] = track.split(":");
+      currentTrack.displays[0].PileupDisplay.setSortedBy(type, tag);
+    }
+
+    // apply color scheme to pileup
+    else if (track.startsWith("color:")) {
+      const [, type, tag] = track.split(":");
+      currentTrack.displays[0].PileupDisplay.setColorScheme({ type, tag });
+    }
+
+    // force track to render even if maxbpperpx limit hit...
+    else if (track.startsWith("force:")) {
+      const [, force] = track.split(":");
+      if (Boolean(force)) {
+        currentTrack.displays[0].setUserBpPerPxLimit(Number.MAX_VALUE);
+      }
+    }
+    // show track
+    else {
+      currentTrack = view.showTrack(extra(track));
+    }
+  }
   tracks
     .filter((f) => !!f && !!f.trim())
-    .forEach((track) => {
-      if (track.startsWith("height:")) {
-        currentTrack.displays[0].setHeight(+track.replace("height:", ""));
-      } else if (track.startsWith("sort:")) {
-        const [, type, tag] = track.split(":");
-        currentTrack.displays[0].PileupDisplay.setSortedBy(type, tag);
-      } else if (track.startsWith("color:")) {
-        const [, type, tag] = track.split(":");
-        currentTrack.displays[0].PileupDisplay.setColorScheme({ type, tag });
-      } else if (track.startsWith("patch:")) {
-        // TODO: apply a generic patch to the track state
-      } else {
-        currentTrack = view.showTrack(path.basename(track));
-      }
-    });
-
-  //convention: just trackIDs here
-  configtracks.forEach((track) => view.showTrack(track));
+    .forEach((track) => process(track, (extra) => path.basename(extra)));
 
   return renderToSvg(view, opts);
 }
