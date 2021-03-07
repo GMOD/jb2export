@@ -81,6 +81,28 @@ syntax that follows a track definition.
 The color and sort are specific to pileup, and height can apply to any track.
 More options may be described here soon
 
+### Force render a large region
+
+Some jbrowse track types (alignments, gene tracks, etc) will not display if
+zoomed too far out. Add force:true to make it render
+
+```bash
+jb2export --config data/config.json \
+  --loc 1:1,100,000-1,200,000 \
+  --assembly hg19 \
+  --configtracks hg00096_lowcov force:true
+```
+
+### Render the sequence track
+
+If you are using the fasta argument, the refseq will be named "refseq" and can
+be specified with the --configtracks tag. If you are using a pre-loaded
+config.json then you can find the trackId to pass to --configtracks in there
+
+```bash
+jb2export --fasta data/volvox/volvox.fa --configtracks refseq --loc ctgA:1-100
+```
+
 ### Use with a jbrowse config.json (remote files in the config.json)
 
 A config.json can be specified, and then we just refer to trackIds in this
