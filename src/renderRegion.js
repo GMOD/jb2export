@@ -46,10 +46,22 @@ export function readData(opts) {
   const assemblyData =
     assembly && fs.existsSync(assembly) ? read(assembly) : undefined;
   const tracksData = tracks ? read(tracks) : undefined;
-  const sessionData = session ? read(session) : undefined;
+  let sessionData = session ? read(session) : undefined;
   const configData = config ? read(config) : {};
   if (config) {
     addRelativePaths(configData, path.dirname(path.resolve(config)));
+  }
+
+  // the session.json can be a raw session or a json file with a "session"
+  // attribute, which is what is exported via the "File->Export session" in
+  // jbrowse-web
+  if (sessionData?.session) {
+    sessionData = sessionData.session;
+  }
+
+  // only export first view
+  if (sessionData?.views) {
+    sessionData.view = sessionData.views[0];
   }
 
   // use assembly from file if a file existed
