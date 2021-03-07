@@ -117,6 +117,19 @@ jb2export --config data/config.json \
   --loc 1:1,000,000-1,100,000
 ```
 
+### Use a session file exported from jbrowse
+
+If you use jbrowse-web, you can select File->Export session which produces a
+session.json file, and then use the --session parameter. Make sure to specify
+the assembly also, it currently does not infer the assembly from the session
+
+```
+jb2export --config data/skbr3/config.json --session session.json --assembly hg19
+```
+
+In this example in the repo, this generates a whole-genome overview of coverage
+from the SKBR3 bigwig file
+
 ### Use with a jbrowse config.json (local files in the config.json)
 
 The jbrowse CLI tool (e.g. npm install -g @jbrowse/cli) refers to "uri" paths
