@@ -13,6 +13,18 @@ function makeLocation(file) {
   return file.startsWith("http") ? { uri: file } : { localPath: file };
 }
 
+function addRelativePaths(config, configPath) {
+  if (typeof config === "object") {
+    for (const key of Object.keys(config)) {
+      if (typeof config[key] === "object") {
+        addRelativePaths(config[key], configPath);
+      } else if (key === "localPath") {
+        config.localPath = path.resolve(configPath, config.localPath);
+      }
+    }
+  }
+}
+
 export function readData(opts) {
   const {
     assembly,
@@ -36,6 +48,9 @@ export function readData(opts) {
   const tracksData = tracks ? read(tracks) : undefined;
   const sessionData = session ? read(session) : undefined;
   const configData = config ? read(config) : {};
+  if (config) {
+    addRelativePaths(configData, path.dirname(path.resolve(config)));
+  }
 
   // use assembly from file if a file existed
   if (assemblyData) {

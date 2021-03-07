@@ -50,29 +50,29 @@ test("renders volvox with variety of args", async () => {
   expect(result).toBeTruthy();
 }, 20000);
 
-test("configtracks arg", async () => {
+test("configtracks arg with urls", async () => {
   const result = await renderRegion({
     config: "data/config.json",
     configtracks: ["ncbi_refseq_109_hg38"],
     assembly: "GRCh38",
-    loc: "chr1:50,000-100,000",
+    loc: "chr1:50,000-60,000",
   });
   // can't do a snapshot test here, slightly inconsistent results(?)
   fs.writeFileSync("test/svg_configtracks_simple.svg", result);
   expect(result).toBeTruthy();
-}, 30000);
+}, 60000);
 
-test("configtracks arg 2", async () => {
+test("configtracks arg with local files", async () => {
   const result = await renderRegion({
-    config: "data/config.json",
-    configtracks: ["hg00096_lowcov"],
-    assembly: "hg19",
-    loc: "chr1:50,000-100,000",
+    config: "data/volvox/config.json",
+    configtracks: ["volvox_sv"],
+    assembly: "volvox",
+    loc: "ctgA:1-50,000",
   });
   // can't do a snapshot test here, slightly inconsistent results(?)
-  fs.writeFileSync("test/svg_configtracks_bam.svg", result);
+  fs.writeFileSync("test/svg_configtracks_local.svg", result);
   expect(result).toBeTruthy();
-}, 30000);
+}, 60000);
 
 xtest("renders --hic", async () => {
   const result = await renderRegion({

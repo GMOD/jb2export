@@ -97,7 +97,6 @@ yargs
     type: "boolean",
   })
   .help()
-  .demandCommand(1, "")
   .alias("help", "h").argv;
 
 const { argv } = opts;
