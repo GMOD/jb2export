@@ -8,3 +8,7 @@ jb2export --config data/config.json \
   --assembly hg19 \
   --configtracks hg00096_lowcov force:true
 ```
+
+## Gallery
+
+![](img/skbr3_cov.png)
