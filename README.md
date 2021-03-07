@@ -56,12 +56,30 @@ contains 1 for chr1, and bigbed contains chr1, gff contains NC_000001.10
 ```
 
 jb2export --fasta https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz \
-  --aliases https://s3.amazonaws.com/jbrowse.org/genomes/hg19/hg19_aliases.txt  \
+  --aliases https://jbrowse.org/genomes/hg19/hg19_aliases.txt  \
   --bigbed https://hgdownload.soe.ucsc.edu/gbdb/hg19/bbi/clinvar/clinvarMain.bb \
-  --gffgz https://s3.amazonaws.com/jbrowse.org/genomes/hg19/ncbi_refseq/GRCh37_latest_genomic.sort.gff.gz \
-  --bigwig https://s3.amazonaws.com/jbrowse.org/genomes/hg19/reads_lr_skbr3.fa_ngmlr-0.2.3_mapped.bam.regions.bw \
+  --gffgz https://jbrowse.org/genomes/hg19/ncbi_refseq/GRCh37_latest_genomic.sort.gff.gz \
+  --bigwig https://jbrowse.org/genomes/hg19/reads_lr_skbr3.fa_ngmlr-0.2.3_mapped.bam.regions.bw \
   --loc 1:48,683,542..48,907,531
 ```
+
+### Customizing track
+
+In addition to possibly specifying custom track configuration files, sometimes
+specializing specifically track state is helpful. This example helps color and
+sort by the read group (RG) tag
+
+```bash
+jb2export --fasta data/volvox/volvox.fa \
+  --bam data/volvox/volvox-rg.bam color:tag:RG sort:tag:RG height:400 \
+  --loc ctgA:609..968
+```
+
+You can see that instead of adding extra dash dash --flags, it is a colon based
+syntax that follows a track definition.
+
+The color and sort are specific to pileup, and height can apply to any track.
+More options may be described here soon
 
 ### Use with a jbrowse config.json (remote files in the config.json)
 
@@ -175,3 +193,8 @@ sudo apt install imagemagick
 convert -size 2048x out.svg out.png
 
 ```
+
+## Notes
+
+Currently does not fully respect the order that you specify tracks, so if you
+have --bam 1.bam --bigwig file.bw --bam 2.bam then it will order it bw,1,2

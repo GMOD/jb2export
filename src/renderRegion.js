@@ -2,7 +2,7 @@ import "regenerator-runtime/runtime";
 import { createViewState } from "@jbrowse/react-linear-genome-view";
 import { getSnapshot } from "mobx-state-tree";
 import { renderToSvg } from "@jbrowse/plugin-linear-genome-view";
-import { when } from "mobx";
+import { when, transaction } from "mobx";
 import path from "path";
 import fs from "fs";
 
@@ -105,18 +105,20 @@ export function readData(opts) {
   if (bam) {
     configData.tracks = [
       ...configData.tracks,
-      ...bam.map((file) => ({
-        type: "AlignmentsTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "BamAdapter",
-          bamLocation: makeLocation(file),
-          index: { location: makeLocation(file + ".bai") },
-          sequenceAdapter: configData.assembly.sequence.adapter,
-        },
-      })),
+      ...bam
+        .filter((file) => !file.startsWith("height:"))
+        .map((file) => ({
+          type: "AlignmentsTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "BamAdapter",
+            bamLocation: makeLocation(file),
+            index: { location: makeLocation(file + ".bai") },
+            sequenceAdapter: configData.assembly.sequence.adapter,
+          },
+        })),
     ];
   }
   if (cram) {
@@ -286,9 +288,24 @@ export async function renderRegion(opts = {}) {
   const tracks = [bam, cram, bigwig, vcfgz, hic, bigbed, bedgz, gffgz].flat();
 
   // convention: path.basename
+  let currentTrack;
   tracks
     .filter((f) => !!f && !!f.trim())
-    .forEach((track) => view.showTrack(path.basename(track)));
+    .forEach((track) => {
+      if (track.startsWith("height:")) {
+        currentTrack.displays[0].setHeight(+track.replace("height:", ""));
+      } else if (track.startsWith("sort:")) {
+        const [, type, tag] = track.split(":");
+        currentTrack.displays[0].PileupDisplay.setSortedBy(type, tag);
+      } else if (track.startsWith("color:")) {
+        const [, type, tag] = track.split(":");
+        currentTrack.displays[0].PileupDisplay.setColorScheme({ type, tag });
+      } else if (track.startsWith("patch:")) {
+        // TODO: apply a generic patch to the track state
+      } else {
+        currentTrack = view.showTrack(path.basename(track));
+      }
+    });
 
   //convention: just trackIDs here
   configtracks.forEach((track) => view.showTrack(track));
