@@ -37,7 +37,10 @@ yargs
       "Supply aliases for the assembly, e.g. mapping of 1 to chr1. Tab separated file where column 1 matches the names from the FASTA",
     type: "string",
   })
-
+  .option("width", {
+    description: "Set the width of the svg canvas, default 1500px",
+    type: "number",
+  })
   // track types
   .option("configtracks", {
     description: "A list of track labels from a config file",

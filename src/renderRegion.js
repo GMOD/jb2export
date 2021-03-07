@@ -277,11 +277,12 @@ export async function renderRegion(opts = {}) {
     bedgz,
     gffgz,
     configtracks = [],
+    width,
   } = opts;
 
   const { view } = model.session;
   const { assemblyManager } = model;
-  view.setWidth(1000);
+  view.setWidth(width || 1500);
   await when(() => {
     return (
       assemblyManager.allPossibleRefNames &&
