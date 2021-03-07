@@ -100,7 +100,8 @@ yargs
     type: "boolean",
   })
   .help()
-  .alias("help", "h").argv;
+  .alias("help", "h")
+  .alias("width", "w").argv;
 
 const { argv } = opts;
 
