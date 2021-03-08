@@ -131,16 +131,25 @@ jb2export --config data/skbr3/config.json \
 
 ### Plot whole-genome overview of bigwig
 
-Use a number of bigwig specific flags to set histogram fill:false, resolution
-to be superfine, color:purple, and min and max score to 1:1024 (must use 1
-instead of 0 for log scale)
+The special flag --loc all shows the full assembly, and there are a number of
+custom bigwig plotting options that can help draw the bigwig genome wide
 
-The special flag --loc all shows the full assembly
+Example with logscale, manual setting of minmax score
 
 ```bash
 jb2export --loc all \
   --bigwig coverage.bw scaletype:log fill:false resolution:superfine height:400 color:purple minmax:1:1024 \
-  --assembly hg19  \
+  --assembly hg19 \
+  --config data/config.json
+```
+
+Example with linearscale, autoscore adjusted to "localsd" or mean plus/minus
+three standard deviations
+
+```bash
+jb2export --loc all \
+  --bigwig coverage.bw autoscale:localsd fill:false resolution:superfine height:400 color:purple \
+  --assembly hg19 \
   --config data/config.json
 ```
 
