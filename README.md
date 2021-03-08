@@ -10,6 +10,8 @@ Inkscape. The output can also be manually converted to PNG if needed.
 
 ![](img/1.png)
 
+More examples [EXAMPLES.md](EXAMPLES.md)
+
 ## Setup
 
 Note that this is not yet published to NPM but when it is you can install via

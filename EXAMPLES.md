@@ -1,14 +1,12 @@
 # More examples
 
-This one overcomes the "Zoom in to see data" for a specific track using force:true
-
-```
-jb2export --config data/config.json \
-  --loc 1:1,100,000-1,200,000 \
-  --assembly hg19 \
-  --configtracks hg00096_lowcov force:true
-```
-
-## Gallery
-
 ![](img/skbr3_cov.png)
+
+SKBR3 breast cancer cell line using
+
+```
+jb2export --loc all \
+  --bigwig coverage.bw scaletype:log fill:false resolution:superfine height:400 color:purple minmax:1:1024 \
+  --assembly hg19 \
+  --config data/config.json
+```
