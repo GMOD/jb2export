@@ -25,7 +25,8 @@ yargs
     type: "string",
   })
   .option("loc", {
-    description: "A locstring to navigate to",
+    description:
+      "A locstring to navigate to, or --loc all to view the whole genome",
     type: "string",
   })
   .option("fasta", {

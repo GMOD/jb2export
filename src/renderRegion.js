@@ -296,7 +296,11 @@ export async function renderRegion(opts = {}) {
     if (region) {
       view.setDisplayedRegions([getSnapshot(region)]);
     }
-    view.navToLocString(loc);
+    if (loc === "all") {
+      view.showAllRegionsInAssembly(assembly.name);
+    } else {
+      view.navToLocString(loc);
+    }
   }
   const tracks = [
     bam,
@@ -311,6 +315,9 @@ export async function renderRegion(opts = {}) {
   ].flat();
 
   let currentTrack;
+
+  // nice helper function from https://stackoverflow.com/questions/263965/
+  const booleanize = (string) => (string === "false" ? false : !!string);
 
   function process(track, extra = () => {}) {
     // apply height to any track
@@ -328,7 +335,11 @@ export async function renderRegion(opts = {}) {
     // apply color scheme to pileup
     else if (track.startsWith("color:")) {
       const [, type, tag] = track.split(":");
-      currentTrack.displays[0].PileupDisplay.setColorScheme({ type, tag });
+      if (currentTrack.displays[0].PileupDisplay) {
+        currentTrack.displays[0].PileupDisplay.setColorScheme({ type, tag });
+      } else {
+        currentTrack.displays[0].setColor(type);
+      }
     }
 
     // force track to render even if maxbpperpx limit hit...
@@ -337,7 +348,35 @@ export async function renderRegion(opts = {}) {
       if (Boolean(force)) {
         currentTrack.displays[0].setUserBpPerPxLimit(Number.MAX_VALUE);
       }
+    } else if (track.startsWith("autoscale:")) {
+      const [, autoscale] = track.split(":");
+      currentTrack.displays[0].setAutoscale(autoscale);
+    } else if (track.startsWith("minmax:")) {
+      const [, min, max] = track.split(":");
+      currentTrack.displays[0].setMinScore(+min);
+      currentTrack.displays[0].setMaxScore(+max);
+    } else if (track.startsWith("scaletype:")) {
+      const [, scaletype] = track.split(":");
+      currentTrack.displays[0].setScaleType(scaletype);
+    } else if (track.startsWith("crosshatch:")) {
+      const [, val] = track.split(":");
+      currentTrack.displays[0].setCrossHatches(booleanize(val));
+    } else if (track.startsWith("fill:")) {
+      const [, val] = track.split(":");
+      currentTrack.displays[0].setFill(booleanize(val));
+    } else if (track.startsWith("resolution:")) {
+      let [, val] = track.split(":");
+      if (val === "fine") {
+        val = 10;
+      } else if (val === "superfine") {
+        val = 100;
+      }
+      currentTrack.displays[0].setResolution(val);
+    } else if (track.startsWith("color:")) {
+      let [, val] = track.split(":");
+      currentTrack.displays[0].setColor(val);
     }
+
     // show track
     else {
       currentTrack = view.showTrack(extra(track));

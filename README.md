@@ -124,11 +124,25 @@ session.json file, and then use the --session parameter. Make sure to specify
 the assembly also, it currently does not infer the assembly from the session
 
 ```
-jb2export --config data/skbr3/config.json --session session.json --assembly hg19
+jb2export --config data/skbr3/config.json \
+  --session session.json \
+  --assembly hg19
 ```
 
-In this example in the repo, this generates a whole-genome overview of coverage
-from the SKBR3 bigwig file
+### Plot whole-genome overview of bigwig
+
+Use a number of bigwig specific flags to set histogram fill:false, resolution
+to be superfine, color:purple, and min and max score to 1:1024 (must use 1
+instead of 0 for log scale)
+
+The special flag --loc all shows the full assembly
+
+```bash
+jb2export --loc all \
+  --bigwig coverage.bw scaletype:log fill:false resolution:superfine height:400 color:purple minmax:1:1024 \
+  --assembly hg19  \
+  --config data/config.json
+```
 
 ### Use with a jbrowse config.json (local files in the config.json)
 
