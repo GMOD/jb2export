@@ -18,7 +18,8 @@
   "scripts": {
     "build": "babel src -d dist",
     "test": "jest",
-    "snap": "node dist/index.js --config data/config.json --out out.svg"
+    "presnap": "npm run build",
+    "snap": "node dist/index.js --config data/config.json --defaultSession --out out.svg"
   },
   "dependencies": {
     "abortcontroller-polyfill": "^1.7.1",

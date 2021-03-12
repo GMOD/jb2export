@@ -97,7 +97,10 @@ yargs
   .option("fullSvg", {
     description:
       "Use full SVG rendering with no rasterized layers, this can substantially increase filesize",
-    default: false,
+    type: "boolean",
+  })
+  .option("defaultSession", {
+    description: "Use the defaultSession from config.json",
     type: "boolean",
   })
   .help()

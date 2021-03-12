@@ -27,7 +27,7 @@ function addRelativePaths(config, configPath) {
 
 export function readData(opts) {
   const {
-    assembly,
+    assembly: asm,
     config,
     tracks,
     session,
@@ -41,13 +41,14 @@ export function readData(opts) {
     hic,
     bedgz,
     bigbed,
+    defaultSession,
   } = opts;
 
-  const assemblyData =
-    assembly && fs.existsSync(assembly) ? read(assembly) : undefined;
+  const assemblyData = asm && fs.existsSync(asm) ? read(asm) : undefined;
   const tracksData = tracks ? read(tracks) : undefined;
-  let sessionData = session ? read(session) : undefined;
   const configData = config ? read(config) : {};
+  let sessionData = session ? read(session) : undefined;
+
   if (config) {
     addRelativePaths(configData, path.dirname(path.resolve(config)));
   }
@@ -70,8 +71,8 @@ export function readData(opts) {
   }
   // else check if it was an assembly name in a config file
   else if (configData.assemblies?.length) {
-    configData.assembly = assembly
-      ? configData.assemblies.find((asm) => asm.name === assembly)
+    configData.assembly = asm
+      ? configData.assemblies.find((asm) => asm.name === asm)
       : configData.assemblies[0];
   }
   // else load fasta from command line
@@ -253,8 +254,11 @@ export function readData(opts) {
     ];
   }
 
-  // don't use defaultSession from config.json file, can result in assembly name confusion
-  delete configData.defaultSession;
+  if (!defaultSession) {
+    // don't use defaultSession from config.json file, can result in assembly
+    // name confusion
+    delete configData.defaultSession;
+  }
 
   // only allow an external manually specified session
   if (sessionData) {
