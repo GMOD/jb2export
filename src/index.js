@@ -1,11 +1,9 @@
 import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 import fs from "fs";
-import path from "path";
 import yargs from "yargs";
 import { standardizeArgv, parseArgv } from "./parseArgv";
 import { renderRegion } from "./renderRegion";
 
-const opts = yargs;
 yargs
   .command("jb2export", "Creates a jbrowse 2 image snapshot")
   .option("config", {
@@ -108,8 +106,6 @@ yargs
   .alias("help", "h")
   .alias("width", "w").argv;
 
-const { argv } = opts;
-
 //prints to stderr the time it takes to execute cb
 async function time(cb) {
   const start = +Date.now();
@@ -132,6 +128,6 @@ const args = standardizeArgv(parseArgv(process.argv.slice(2)), [
 
 time(() =>
   renderRegion(args).then((result) => {
-    fs.writeFileSync(args.out, result);
+    fs.writeFileSync(args.out || "out.svg", result);
   }, console.error)
 );

@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a region with --session and --config args 1`] = `1192516711`;
+exports[`renders a region with --session and --config args 1`] = `1309963056`;
 
-exports[`renders a region with --session, --tracks, and --assembly args 1`] = `1192516711`;
+exports[`renders a region with --session, --tracks, and --assembly args 1`] = `1309963056`;

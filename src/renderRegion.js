@@ -34,12 +34,12 @@ export function readData(opts) {
     fasta,
     aliases,
     defaultSession,
+    trackList = [],
     tracks,
-    tracksFile,
   } = opts;
 
   const assemblyData = asm && fs.existsSync(asm) ? read(asm) : undefined;
-  const tracksData = tracksFile ? read(tracksFile) : undefined;
+  const tracksData = tracks ? read(tracks) : undefined;
   const configData = config ? read(config) : {};
   let sessionData = session ? read(session) : undefined;
 
@@ -66,7 +66,7 @@ export function readData(opts) {
   // else check if it was an assembly name in a config file
   else if (configData.assemblies?.length) {
     configData.assembly = asm
-      ? configData.assemblies.find((asm) => asm.name === asm)
+      ? configData.assemblies.find((entry) => entry.name === asm)
       : configData.assemblies[0];
   }
   // else load fasta from command line
@@ -109,7 +109,7 @@ export function readData(opts) {
     configData.tracks = [];
   }
 
-  tracks.forEach((track) => {
+  trackList.forEach((track) => {
     const [type, [file, opts]] = track;
 
     if (type === "bam") {
@@ -266,11 +266,13 @@ export function readData(opts) {
 
 export async function renderRegion(opts = {}) {
   const model = createViewState(readData(opts));
-  const { loc, width, tracks } = opts;
+  const { loc, width = 1500, trackList = [] } = opts;
 
-  const { view } = model.session;
+  const { session } = model;
+  const { view } = session;
   const { assemblyManager } = model;
-  view.setWidth(width || 1500);
+
+  view.setWidth(width);
   await when(() => {
     return (
       assemblyManager.allPossibleRefNames &&
@@ -278,6 +280,7 @@ export async function renderRegion(opts = {}) {
       model.session.view.initialized
     );
   });
+
   if (loc) {
     const assembly = assemblyManager.assemblies[0];
     const region = assembly.regions[0];
@@ -290,8 +293,9 @@ export async function renderRegion(opts = {}) {
       view.navToLocString(loc);
     }
   }
+
   function process(trackEntry, extra = () => {}) {
-    const [track, ...opts] = trackEntry;
+    const [, [track, ...opts]] = trackEntry;
     const currentTrack = view.showTrack(extra(track));
     const display = currentTrack.displays[0];
     opts.forEach((opt) => {
@@ -368,7 +372,7 @@ export async function renderRegion(opts = {}) {
       }
     });
   }
-  tracks.forEach((track) => process(track, (extra) => path.basename(extra)));
+  trackList.forEach((track) => process(track, (extra) => path.basename(extra)));
 
   return renderToSvg(view, opts);
 }

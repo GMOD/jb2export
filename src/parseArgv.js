@@ -17,12 +17,12 @@ export function parseArgv(argv) {
 }
 
 export function standardizeArgv(args, trackTypes) {
-  const result = { tracks: [] };
+  const result = { trackList: [] };
   args.forEach((arg) => {
     if (trackTypes.includes(arg[0])) {
-      result.tracks.push(arg);
+      result.trackList.push(arg);
     } else {
-      result[arg[0]] = arg[1] || true;
+      result[arg[0]] = arg[1][0] || true;
     }
   });
   return result;
