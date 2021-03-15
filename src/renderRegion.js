@@ -316,6 +316,7 @@ export async function renderRegion(opts = {}) {
     bedgz,
     gffgz,
     configtracks,
+    inorder,
   ].flat();
 
   let currentTrack;
