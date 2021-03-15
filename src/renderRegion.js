@@ -5,6 +5,7 @@ import { renderToSvg } from "@jbrowse/plugin-linear-genome-view";
 import { when } from "mobx";
 import path from "path";
 import fs from "fs";
+import { booleanize } from "./util";
 
 function read(file) {
   return JSON.parse(fs.readFileSync(file));
@@ -29,23 +30,16 @@ export function readData(opts) {
   const {
     assembly: asm,
     config,
-    tracks,
     session,
     fasta,
     aliases,
-    bam,
-    cram,
-    bigwig,
-    vcfgz,
-    gffgz,
-    hic,
-    bedgz,
-    bigbed,
     defaultSession,
+    tracks,
+    tracksFile,
   } = opts;
 
   const assemblyData = asm && fs.existsSync(asm) ? read(asm) : undefined;
-  const tracksData = tracks ? read(tracks) : undefined;
+  const tracksData = tracksFile ? read(tracksFile) : undefined;
   const configData = config ? read(config) : {};
   let sessionData = session ? read(session) : undefined;
 
@@ -115,12 +109,13 @@ export function readData(opts) {
     configData.tracks = [];
   }
 
-  if (bam) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...bam
-        .filter((file) => !file.startsWith("height:"))
-        .map((file) => ({
+  tracks.forEach((track) => {
+    const [type, [file, opts]] = track;
+
+    if (type === "bam") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
           type: "AlignmentsTrack",
           trackId: path.basename(file),
           name: path.basename(file),
@@ -131,128 +126,129 @@ export function readData(opts) {
             index: { location: makeLocation(file + ".bai") },
             sequenceAdapter: configData.assembly.sequence.adapter,
           },
-        })),
-    ];
-  }
-  if (cram) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...cram.map((file) => ({
-        type: "AlignmentsTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "CramAdapter",
-          cramLocation: makeLocation(file),
-          craiLocation: makeLocation(file + ".crai"),
-          sequenceAdapter: configData.assembly.sequence.adapter,
         },
-      })),
-    ];
-  }
-  if (bigwig) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...bigwig.map((file) => ({
-        type: "QuantitativeTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "BigWigAdapter",
-          bigWigLocation: makeLocation(file),
-        },
-      })),
-    ];
-  }
-
-  if (vcfgz) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...vcfgz.map((file) => ({
-        type: "VariantTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "VcfTabixAdapter",
-          vcfGzLocation: makeLocation(file),
-          index: {
-            location: makeLocation(file + ".tbi"),
+      ];
+    }
+    if (type === "cram") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
+          type: "AlignmentsTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "CramAdapter",
+            cramLocation: makeLocation(file),
+            craiLocation: makeLocation(file + ".crai"),
+            sequenceAdapter: configData.assembly.sequence.adapter,
           },
         },
-      })),
-    ];
-  }
-
-  if (gffgz) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...gffgz.map((file) => ({
-        type: "FeatureTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "Gff3TabixAdapter",
-          gffGzLocation: makeLocation(file),
-          index: {
-            location: makeLocation(file + ".tbi"),
+      ];
+    }
+    if (type === "bigwig") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
+          type: "QuantitativeTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "BigWigAdapter",
+            bigWigLocation: makeLocation(file),
           },
         },
-      })),
-    ];
-  }
+      ];
+    }
 
-  if (hic) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...hic.map((file) => ({
-        type: "HicTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "HicAdapter",
-          hicLocation: makeLocation(file),
-        },
-      })),
-    ];
-  }
-  if (bigbed) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...bigbed.map((file) => ({
-        type: "FeatureTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "BigBedAdapter",
-          bigBedLocation: makeLocation(file),
-        },
-      })),
-    ];
-  }
-  if (bedgz) {
-    configData.tracks = [
-      ...configData.tracks,
-      ...bedgz.map((file) => ({
-        type: "FeatureTrack",
-        trackId: path.basename(file),
-        name: path.basename(file),
-        assemblyNames: [configData.assembly.name],
-        adapter: {
-          type: "BedTabixAdapter",
-          bedGzLocation: makeLocation(file),
-          index: {
-            location: makeLocation(file + ".tbi"),
+    if (type === "vcfgz") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
+          type: "VariantTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "VcfTabixAdapter",
+            vcfGzLocation: makeLocation(file),
+            index: {
+              location: makeLocation(file + ".tbi"),
+            },
           },
         },
-      })),
-    ];
-  }
+      ];
+    }
+
+    if (type === "gffgz") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
+          type: "FeatureTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "Gff3TabixAdapter",
+            gffGzLocation: makeLocation(file),
+            index: {
+              location: makeLocation(file + ".tbi"),
+            },
+          },
+        },
+      ];
+    }
+
+    if (type === "hic") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
+          type: "HicTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "HicAdapter",
+            hicLocation: makeLocation(file),
+          },
+        },
+      ];
+    }
+    if (type === "bigbed") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
+          type: "FeatureTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "BigBedAdapter",
+            bigBedLocation: makeLocation(file),
+          },
+        },
+      ];
+    }
+    if (type === "bedgz") {
+      configData.tracks = [
+        ...configData.tracks,
+        {
+          type: "FeatureTrack",
+          trackId: path.basename(file),
+          name: path.basename(file),
+          assemblyNames: [configData.assembly.name],
+          adapter: {
+            type: "BedTabixAdapter",
+            bedGzLocation: makeLocation(file),
+            index: {
+              location: makeLocation(file + ".tbi"),
+            },
+          },
+        },
+      ];
+    }
+  });
 
   if (!defaultSession) {
     // don't use defaultSession from config.json file, can result in assembly
@@ -270,19 +266,7 @@ export function readData(opts) {
 
 export async function renderRegion(opts = {}) {
   const model = createViewState(readData(opts));
-  const {
-    loc,
-    bam,
-    cram,
-    bigwig,
-    vcfgz,
-    hic,
-    bigbed,
-    bedgz,
-    gffgz,
-    configtracks = [],
-    width,
-  } = opts;
+  const { loc, width, tracks } = opts;
 
   const { view } = model.session;
   const { assemblyManager } = model;
@@ -306,90 +290,85 @@ export async function renderRegion(opts = {}) {
       view.navToLocString(loc);
     }
   }
-  const tracks = [
-    bam,
-    cram,
-    bigwig,
-    vcfgz,
-    hic,
-    bigbed,
-    bedgz,
-    gffgz,
-    configtracks,
-    inorder,
-  ].flat();
-
-  let currentTrack;
-
-  // nice helper function from https://stackoverflow.com/questions/263965/
-  const booleanize = (string) => (string === "false" ? false : !!string);
-
-  function process(track, extra = () => {}) {
-    // apply height to any track
-    if (track.startsWith("height:")) {
-      const [, height] = track.split(":");
-      currentTrack.displays[0].setHeight(+height);
-    }
-
-    // apply sort to pileup
-    else if (track.startsWith("sort:")) {
-      const [, type, tag] = track.split(":");
-      currentTrack.displays[0].PileupDisplay.setSortedBy(type, tag);
-    }
-
-    // apply color scheme to pileup
-    else if (track.startsWith("color:")) {
-      const [, type, tag] = track.split(":");
-      if (currentTrack.displays[0].PileupDisplay) {
-        currentTrack.displays[0].PileupDisplay.setColorScheme({ type, tag });
-      } else {
-        currentTrack.displays[0].setColor(type);
+  function process(trackEntry, extra = () => {}) {
+    const [track, ...opts] = trackEntry;
+    const currentTrack = view.showTrack(extra(track));
+    const display = currentTrack.displays[0];
+    opts.forEach((opt) => {
+      // apply height to any track
+      if (opt.startsWith("height:")) {
+        const [, height] = opt.split(":");
+        display.setHeight(+height);
       }
-    }
 
-    // force track to render even if maxbpperpx limit hit...
-    else if (track.startsWith("force:")) {
-      const [, force] = track.split(":");
-      if (Boolean(force)) {
-        currentTrack.displays[0].setUserBpPerPxLimit(Number.MAX_VALUE);
+      // apply sort to pileup
+      else if (opt.startsWith("sort:")) {
+        const [, type, tag] = opt.split(":");
+        display.PileupDisplay.setSortedBy(type, tag);
       }
-    } else if (track.startsWith("autoscale:")) {
-      const [, autoscale] = track.split(":");
-      currentTrack.displays[0].setAutoscale(autoscale);
-    } else if (track.startsWith("minmax:")) {
-      const [, min, max] = track.split(":");
-      currentTrack.displays[0].setMinScore(+min);
-      currentTrack.displays[0].setMaxScore(+max);
-    } else if (track.startsWith("scaletype:")) {
-      const [, scaletype] = track.split(":");
-      currentTrack.displays[0].setScaleType(scaletype);
-    } else if (track.startsWith("crosshatch:")) {
-      const [, val] = track.split(":");
-      currentTrack.displays[0].setCrossHatches(booleanize(val));
-    } else if (track.startsWith("fill:")) {
-      const [, val] = track.split(":");
-      currentTrack.displays[0].setFill(booleanize(val));
-    } else if (track.startsWith("resolution:")) {
-      let [, val] = track.split(":");
-      if (val === "fine") {
-        val = 10;
-      } else if (val === "superfine") {
-        val = 100;
-      }
-      currentTrack.displays[0].setResolution(val);
-    } else if (track.startsWith("color:")) {
-      let [, val] = track.split(":");
-      currentTrack.displays[0].setColor(val);
-    }
 
-    // show track
-    else {
-      currentTrack = view.showTrack(extra(track));
-    }
+      // apply color scheme to pileup
+      else if (opt.startsWith("color:")) {
+        const [, type, tag] = opt.split(":");
+        if (display.PileupDisplay) {
+          display.PileupDisplay.setColorScheme({ type, tag });
+        } else {
+          display.setColor(type);
+        }
+      }
+
+      // force track to render even if maxbpperpx limit hit...
+      else if (opt.startsWith("force:")) {
+        const [, force] = opt.split(":");
+        if (Boolean(force)) {
+          display.setUserBpPerPxLimit(Number.MAX_VALUE);
+        }
+      }
+
+      // apply wiggle autoscale
+      else if (opt.startsWith("autoscale:")) {
+        const [, autoscale] = opt.split(":");
+        display.setAutoscale(autoscale);
+      }
+
+      // apply min and max score to wiggle
+      else if (opt.startsWith("minmax:")) {
+        const [, min, max] = opt.split(":");
+        display.setMinScore(+min);
+        display.setMaxScore(+max);
+      }
+
+      // apply linear or log scale to wiggle
+      else if (opt.startsWith("scaletype:")) {
+        const [, scaletype] = opt.split(":");
+        display.setScaleType(scaletype);
+      }
+
+      // draw crosshatches on wiggle
+      else if (opt.startsWith("crosshatch:")) {
+        const [, val] = opt.split(":");
+        display.setCrossHatches(booleanize(val));
+      }
+
+      // turn off fill on bigwig with fill:false
+      else if (opt.startsWith("fill:")) {
+        const [, val] = opt.split(":");
+        display.setFill(booleanize(val));
+      }
+
+      // set resolution:superfine to use finer bigwig bin size
+      else if (opt.startsWith("resolution:")) {
+        let [, val] = opt.split(":");
+        if (val === "fine") {
+          val = 10;
+        } else if (val === "superfine") {
+          val = 100;
+        }
+        display.setResolution(val);
+      }
+    });
   }
-  tracks
-    .filter((f) => !!f && !!f.trim())
-    .forEach((track) => process(track, (extra) => path.basename(extra)));
+  tracks.forEach((track) => process(track, (extra) => path.basename(extra)));
 
   return renderToSvg(view, opts);
 }

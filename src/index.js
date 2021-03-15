@@ -2,7 +2,7 @@ import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 import fs from "fs";
 import path from "path";
 import yargs from "yargs";
-import parseArgv from "./parseArgv";
+import { standardizeArgv, parseArgv } from "./parseArgv";
 import { renderRegion } from "./renderRegion";
 
 const opts = yargs;
@@ -118,15 +118,20 @@ async function time(cb) {
   return ret;
 }
 
-console.log(parseArgv(process.argv.slice(2)));
+const args = standardizeArgv(parseArgv(process.argv.slice(2)), [
+  "bam",
+  "cram",
+  "vcfgz",
+  "hic",
+  "bigwig",
+  "bigbed",
+  "bedgz",
+  "gffgz",
+  "configtracks",
+]);
 
-time(() => renderRegion(argv, getTrackIds(process.argv.slice(2)))).then(
-  (result) => {
-    if (argv.out) {
-      fs.writeFileSync(argv.out, result);
-    } else {
-      process.stdout.write(result);
-    }
-  },
-  console.error
+time(() =>
+  renderRegion(args).then((result) => {
+    fs.writeFileSync(args.out, result);
+  }, console.error)
 );
