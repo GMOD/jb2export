@@ -119,6 +119,18 @@ jb2export --config data/config.json \
   --loc 1:1,000,000-1,100,000
 ```
 
+### Respects the order of the files you input
+
+Example:
+
+```
+jb2export --bam file1.bam --bigwig file.bw --bam file2.bam
+```
+
+This will respect the order of the tracks and list file1.bam, file.bw, and
+file2.bam in that order. This requires us to use a custom command line parser
+instead of an off-the-shelf one like yargs
+
 ### Use a session file exported from jbrowse
 
 If you use jbrowse-web, you can select File->Export session which produces a
@@ -253,8 +265,3 @@ sudo apt install imagemagick
 convert -size 2048x out.svg out.png
 
 ```
-
-## Notes
-
-Currently does not fully respect the order that you specify tracks, so if you
-have --bam 1.bam --bigwig file.bw --bam 2.bam then it will order it bw,1,2
