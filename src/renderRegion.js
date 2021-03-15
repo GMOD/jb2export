@@ -266,7 +266,13 @@ export function readData(opts) {
 
 export async function renderRegion(opts = {}) {
   const model = createViewState(readData(opts));
-  const { loc, width = 1500, trackList = [] } = opts;
+  const {
+    loc,
+    width = 1500,
+    trackList = [],
+    session: sessionParam,
+    defaultSession,
+  } = opts;
 
   const { session } = model;
   const { view } = session;
@@ -292,6 +298,8 @@ export async function renderRegion(opts = {}) {
     } else {
       view.navToLocString(loc);
     }
+  } else if (!sessionParam && !defaultSession) {
+    console.warn("No loc specified");
   }
 
   function process(trackEntry, extra = () => {}) {
