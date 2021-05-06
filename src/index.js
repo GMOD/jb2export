@@ -93,7 +93,7 @@ yargs
     type: "string",
     default: "out.svg",
   })
-  .option("fullSvg", {
+  .option("noRasterize", {
     description:
       "Use full SVG rendering with no rasterized layers, this can substantially increase filesize",
     type: "boolean",

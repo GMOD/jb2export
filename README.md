@@ -238,9 +238,9 @@ specify it multiple times e.g. --bam file1.bam --bam file2.bam
 
 - --loc - a locstring to navigate to
 - --out - file to write the svg to
-- --fullSvg - the canvas based tracks such as wiggle, read pileups, and hic are
-  rasterized to a PNG inside the svg by default. if you want it in all SVG then
-  use this flag but note that filesize may be much larger
+- --noRasterize - the canvas based tracks such as wiggle, read pileups, and hic
+  are rasterized to a PNG inside the svg by default. if you want it in all SVG
+  then use this flag but note that filesize may be much larger
 
 ## Convert to PNG
 

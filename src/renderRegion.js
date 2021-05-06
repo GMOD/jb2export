@@ -382,5 +382,5 @@ export async function renderRegion(opts = {}) {
   }
   trackList.forEach((track) => process(track, (extra) => path.basename(extra)));
 
-  return renderToSvg(view, opts);
+  return renderToSvg(view, { rasterizeLayers: !opts.noRasterize, ...opts });
 }
