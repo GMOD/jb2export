@@ -8,7 +8,15 @@ import fs from "fs";
 import { booleanize } from "./util";
 
 function read(file) {
-  return JSON.parse(fs.readFileSync(file));
+  let res;
+  try {
+    res = JSON.parse(fs.readFileSync(file));
+  } catch (e) {
+    throw new Error(
+      `Failed to parse ${file} as JSON, use --fasta if you mean to pass a FASTA file`
+    );
+  }
+  return res;
 }
 function makeLocation(file) {
   return file.startsWith("http") ? { uri: file } : { localPath: file };
