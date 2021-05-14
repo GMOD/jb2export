@@ -15,7 +15,7 @@
     "react-dom": "^17.0.1"
   },
   "bin": {
-    "jb2export": "./dist/index.js"
+    "jb2export": "node ./dist/index.js"
   },
   "files": [
     "dist"

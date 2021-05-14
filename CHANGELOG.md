@@ -1,3 +1,7 @@
+# v1.2.4
+
+Fix bin field in package.json
+
 # v1.2.3
 
 Add @jbrowse/react-linear-genome-view to regular dependency"

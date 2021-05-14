@@ -110,7 +110,7 @@ yargs
 async function time(cb) {
   const start = +Date.now();
   const ret = await cb();
-  console.error(`Finished rendering: ${(+Date.now() - start) / 1000}s`);
+  console.log(`Finished rendering: ${(+Date.now() - start) / 1000}s`);
   return ret;
 }
 
