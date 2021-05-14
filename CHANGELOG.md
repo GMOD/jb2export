@@ -1,3 +1,5 @@
+# v1.2.6
+
 Build before publish
 
 # v1.2.5

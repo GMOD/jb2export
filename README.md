@@ -5,6 +5,13 @@ Static exports of JBrowse 2 rendering.
 The output is currently SVG which should be loadable in Adobe Illustrator or
 Inkscape. The output can also be manually converted to PNG if needed.
 
+## Prerequisites
+
+You don't need to have JBrowse 2 installed to use this tool. The tool can generate images using files on your hard drive or from remote files. So, all you need to run this tool is
+
+- NodeJS v10 or greater
+- Some files that you want to visualize!
+
 ## Screenshot
 
 ![](img/1.png)
@@ -13,15 +20,14 @@ More examples [EXAMPLES.md](EXAMPLES.md)
 
 ## Setup
 
-Note that this is not yet published to NPM but when it is you can install via
+You can install the `@jbrowse/img` package from npm, which, if your node is configured in a typical configuration, will then have a command `jb2export` in your path
 
 ```bash
 npm install -g @jbrowse/img
 ```
 
-Then you will have a command `jb2export` that can be used.
-
-To use it now, see [developer guide](DEVELOPER.md) for details
+If you are a developer and want to modify the code, see [developer
+guide](DEVELOPER.md) for details
 
 ## Example usages
 
@@ -42,7 +48,7 @@ samtools index yourfile.bam
 
 
 ## simple rendering of a your local files
-jb2export --fasta yourfile.fa --bam yourfile.bam --loc 1:1,000,000-1,001,000
+jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000
 ```
 
 The file out.svg is created by default, use --out to customize
@@ -264,3 +270,16 @@ sudo apt install imagemagick
 convert -size 2048x out.svg out.png
 
 ```
+
+## Troubleshooting
+
+### I see the message 'useLayoutEffect does nothing on the server'
+
+This is a harmless warning, we are working on fixing it though
+
+### I don't get any outputted svg and no message
+
+The error reporting from the app is not very good at the moment so often has
+silent failures. Confirm that your fasta file to your pass to --fasta is
+indexed in this case e.g. `samtools faidx yourfile.fa` so that your have a
+yourfile.fa.fai alongside yourfile.fa
