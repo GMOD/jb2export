@@ -1,3 +1,7 @@
+# v1.2.7
+
+Add react as a regular dependency instead of devDependency
+
 # v1.2.6
 
 Build before publish
