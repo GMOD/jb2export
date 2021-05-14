@@ -15,11 +15,15 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
+  "bin": {
+    "jb2export": "./dist/index.js"
+  },
   "scripts": {
     "build": "babel src -d dist",
     "test": "jest",
     "presnap": "npm run build",
-    "snap": "node dist/index.js --config data/config.json --defaultSession --out out.svg"
+    "snap": "node dist/index.js --config data/config.json --defaultSession --out out.svg",
+    "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "abortcontroller-polyfill": "^1.7.1",
