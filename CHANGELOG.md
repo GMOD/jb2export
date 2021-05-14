@@ -1,3 +1,5 @@
+Build before publish
+
 # v1.2.5
 
 Generate shebang on bin generated file

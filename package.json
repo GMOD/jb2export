@@ -21,9 +21,10 @@
     "dist"
   ],
   "scripts": {
+    "test": "jest",
     "prebuild": "rm -rf dist",
     "build": "babel src -d dist",
-    "test": "jest",
+    "preversion": "npm run build",
     "presnap": "npm run build",
     "snap": "node dist/index.js --config data/config.json --defaultSession --out out.svg",
     "postversion": "git push --follow-tags"
