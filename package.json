@@ -2,8 +2,8 @@
   "name": "@jbrowse/img",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Colin",
-  "license": "MIT",
+  "author": "JBrowse Team",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@babel/cli": "^7.12.17",
     "@babel/core": "^7.12.17",
@@ -28,5 +28,8 @@
     "regenerator-runtime": "^0.13.7",
     "svg-path-generator": "^1.1.0",
     "yargs": "^16.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
