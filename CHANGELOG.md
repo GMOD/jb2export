@@ -1,3 +1,7 @@
+# v1.2.5
+
+Generate shebang on bin generated file
+
 # v1.2.4
 
 Fix bin field in package.json

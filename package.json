@@ -15,12 +15,13 @@
     "react-dom": "^17.0.1"
   },
   "bin": {
-    "jb2export": "node ./dist/index.js"
+    "jb2export": "./dist/bin.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "babel src -d dist",
     "test": "jest",
     "presnap": "npm run build",

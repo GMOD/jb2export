@@ -107,7 +107,7 @@ export function readData(opts) {
   // throw if still no assembly
   if (!configData.assembly) {
     throw new Error(
-      "no assembly specified, --assembly can accept an assembly name to look for in the --config file supplied, or if --config is not used, --assembly can be a path to a JSON file"
+      "no assembly specified, use --fasta to supply an indexed FASTA file (generated with samtools faidx yourfile.fa). see README for alternatives with --assembly and --config"
     );
   }
 
