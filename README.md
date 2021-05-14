@@ -1,7 +1,6 @@
-# jb2export
+# @jbrowse/img
 
-Static exports of JBrowse 2 rendering. This is a proof of concept work in
-progress using beta branches of JBrowse 2 but has some nice early results
+Static exports of JBrowse 2 rendering.
 
 The output is currently SVG which should be loadable in Adobe Illustrator or
 Inkscape. The output can also be manually converted to PNG if needed.
@@ -17,7 +16,7 @@ More examples [EXAMPLES.md](EXAMPLES.md)
 Note that this is not yet published to NPM but when it is you can install via
 
 ```bash
-npm install -g jb2export
+npm install -g @jbrowse/img
 ```
 
 Then you will have a command `jb2export` that can be used.
