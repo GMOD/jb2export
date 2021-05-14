@@ -18,6 +18,9 @@
   "bin": {
     "jb2export": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "babel src -d dist",
     "test": "jest",
