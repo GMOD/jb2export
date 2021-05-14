@@ -283,3 +283,10 @@ The error reporting from the app is not very good at the moment so often has
 silent failures. Confirm that your fasta file to your pass to --fasta is
 indexed in this case e.g. `samtools faidx yourfile.fa` so that your have a
 yourfile.fa.fai alongside yourfile.fa
+
+### I get a lot of warnings during npm install -g @jbrowse/img
+
+There are some new features in the latest NPM (2021, v7) related to
+peerDependencies that may produce some warnings. It should work even despite
+making warnings, but you can use yarn to install or use legacy peer
+dependencies if you want to avoid install time warningsvg
