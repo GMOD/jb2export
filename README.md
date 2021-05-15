@@ -247,6 +247,56 @@ specify it multiple times e.g. --bam file1.bam --bam file2.bam
   are rasterized to a PNG inside the svg by default. if you want it in all SVG
   then use this flag but note that filesize may be much larger
 
+## Use --help
+
+```
+
+jb2export --help
+jb2export [command]
+
+Commands:
+  jb2export jb2export  Creates a jbrowse 2 image snapshot
+
+Options:
+      --version         Show version number                            [boolean]
+      --config          Path to config file                             [string]
+      --session         Path to session file                            [string]
+      --assembly        Path to an assembly configuration, or a name of an
+                        assembly in the configFile                      [string]
+      --tracks          Path to tracks portion of a session             [string]
+      --loc             A locstring to navigate to, or --loc all to view the
+                        whole genome                                    [string]
+      --fasta           Supply a fasta for the assembly                 [string]
+      --aliases         Supply aliases for the assembly, e.g. mapping of 1 to
+                        chr1. Tab separated file where column 1 matches the
+                        names from the FASTA                            [string]
+  -w, --width           Set the width of the svg canvas, default 1500px [number]
+      --configtracks    A list of track labels from a config file        [array]
+      --bam             A bam file, flag --bam can be used multiple times to
+                        specify multiple bam files                       [array]
+      --bigwig          A bigwig file, the --bigwig flag can be used multiple
+                        times to specify multiple bigwig files           [array]
+      --cram            A cram file, the --cram flag can be used multiple times
+                        to specify multiple cram files                   [array]
+      --vcfgz           A tabixed VCF, the --vcfgz flag can be used multiple
+                        times to specify multiple vcfgz files            [array]
+      --gffgz           A tabixed GFF, the --gffgz can be used multiple times to
+                        specify multiple gffgz files                     [array]
+      --hic             A .hic file, the --hic can be used multiple times to
+                        specify multiple hic files                       [array]
+      --bigbed          A .bigBed file, the --bigbed can be used multiple times
+                        to specify multiple bigbed files                 [array]
+      --bedgz           A bed tabix file, the --bedgz can be used multiple times
+                        to specify multiple bedtabix files               [array]
+      --out             File to output to. Default: out.svg
+                                                   [string] [default: "out.svg"]
+      --noRasterize     Use full SVG rendering with no rasterized layers, this
+                        can substantially increase filesize            [boolean]
+      --defaultSession  Use the defaultSession from config.json        [boolean]
+  -h, --help            Show help                                      [boolean]
+
+```
+
 ## Convert to PNG
 
 The PNG above was made with inkscape. Most methods for converting from SVG to
