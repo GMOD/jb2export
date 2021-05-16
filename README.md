@@ -341,7 +341,7 @@ peerDependencies that may produce some warnings. It should work even despite
 making warnings, but you can use yarn to install or use legacy peer
 dependencies if you want to avoid install time warningsvg
 
-### The program keep running after saying it completed?
+### The program keeps running after saying it completed?
 
 We are looking into this still. The file should have been generated though, and
 the program will complete
