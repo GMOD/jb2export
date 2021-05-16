@@ -340,3 +340,7 @@ There are some new features in the latest NPM (2021, v7) related to
 peerDependencies that may produce some warnings. It should work even despite
 making warnings, but you can use yarn to install or use legacy peer
 dependencies if you want to avoid install time warningsvg
+
+### The program appears to take 20+ seconds after saying it completed
+
+We are looking into this still. The file should have been generated though
