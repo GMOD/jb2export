@@ -20,7 +20,7 @@ More examples [EXAMPLES.md](EXAMPLES.md)
 You can install the `@jbrowse/img` package from npm, which, if your node is configured in a typical configuration, will then have a command `jb2export` in your path
 
 ```bash
-npm install -g @jbrowse/img
+npm install -g @jbrowse/img ## may need to add --legacy-peer-deps flag also
 ```
 
 If you are a developer and want to modify the code, see [developer
@@ -341,6 +341,7 @@ peerDependencies that may produce some warnings. It should work even despite
 making warnings, but you can use yarn to install or use legacy peer
 dependencies if you want to avoid install time warningsvg
 
-### The program appears to take 20+ seconds after saying it completed
+### The program keep running after saying it completed?
 
-We are looking into this still. The file should have been generated though
+We are looking into this still. The file should have been generated though, and
+the program will complete
