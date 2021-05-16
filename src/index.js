@@ -3,6 +3,9 @@ import fs from "fs";
 import yargs from "yargs";
 import { standardizeArgv, parseArgv } from "./parseArgv";
 import { renderRegion } from "./renderRegion";
+import tmp from "tmp";
+
+import { spawnSync } from "child_process";
 
 yargs
   .command("jb2export", "Creates a jbrowse 2 image snapshot")
@@ -38,8 +41,15 @@ yargs
     type: "string",
   })
   .option("width", {
-    description: "Set the width of the svg canvas, default 1500px",
+    description:
+      "Set the width of the window that jbrowse renders to, default: 1500px",
     type: "number",
+  })
+  .option("pngwidth", {
+    description:
+      "Set the width of the png canvas if using png output, default 2048px",
+    type: "number",
+    default: 2048,
   })
   // track types
   .option("configtracks", {
@@ -89,7 +99,8 @@ yargs
 
   // other
   .option("out", {
-    description: "File to output to. Default: out.svg",
+    description:
+      "File to output to. Default: out.svg. If a filename with extension .png is supplied the program will try to automatically execute rsvg-convert to convert it to png",
     type: "string",
     default: "out.svg",
   })
@@ -128,6 +139,27 @@ const args = standardizeArgv(parseArgv(process.argv.slice(2)), [
 
 time(() =>
   renderRegion(args).then((result) => {
-    fs.writeFileSync(args.out || "out.svg", result);
+    const outfile = args.out || "out.svg";
+    if (outfile.endsWith(".png")) {
+      const tmpobj = tmp.fileSync({
+        mode: 0o644,
+        prefix: "prefix-",
+        postfix: ".svg",
+      });
+      fs.writeFileSync(tmpobj.name, result);
+      const ls = spawnSync("rsvg-convert", [
+        "-w",
+        args.pngwidth || 2048,
+        tmpobj.name,
+        "-o",
+        outfile,
+      ]);
+
+      console.log(`rsvg-convert stderr: ${ls.stderr.toString()}`);
+      console.log(`rsvg-convert stdout: ${ls.stdout.toString()}`);
+      fs.unlinkSync(tmpobj.name);
+    } else {
+      fs.writeFileSync(outfile, result);
+    }
   }, console.error)
 );

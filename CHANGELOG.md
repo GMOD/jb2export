@@ -1,3 +1,7 @@
+# v1.2.8
+
+Add ability to automatically generate a PNG if you have rsvg-convert command installed and you supply an extension with png --out file.png
+
 # v1.2.7
 
 Add react as a regular dependency instead of devDependency

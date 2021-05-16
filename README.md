@@ -2,9 +2,6 @@
 
 Static exports of JBrowse 2 rendering.
 
-The output is currently SVG which should be loadable in Adobe Illustrator or
-Inkscape. The output can also be manually converted to PNG if needed.
-
 ## Prerequisites
 
 You don't need to have JBrowse 2 installed to use this tool. The tool can generate images using files on your hard drive or from remote files. So, all you need to run this tool is
@@ -51,7 +48,9 @@ samtools index yourfile.bam
 jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000
 ```
 
-The file out.svg is created by default, use --out to customize
+The file out.svg is created by default, use --out to customize. If a filename
+with a png extension is supplied to --out then the tool tries to convert to png
+automatically using rsvg-convert (can be installed on some systems with `sudo apt install librsvg2-bin`)
 
 ### Use with remote files
 
@@ -299,9 +298,10 @@ Options:
 
 ## Convert to PNG
 
-The PNG above was made with inkscape. Most methods for converting from SVG to
-PNG should be OK, but imagemagick may produce some somewhat weird formatting.
-Here are a couple methods you can try
+The tool will automatically try to run rsvg-convert and convert to PNG if a
+filename with png extension is supplied to --out
+
+Alternatively, you can do so manually with commands like this
 
 ```bash
 ## with inkscape
