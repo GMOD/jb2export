@@ -23,8 +23,10 @@
     "prebuild": "rm -rf dist",
     "build": "babel src -d dist",
     "preversion": "npm run build",
-    "presnap": "npm run build",
-    "snap": "node dist/index.js --config data/config.json --defaultSession --out out.svg",
+    "snap": "npm run build && node dist/index.js --config data/config.json --defaultSession --out out.svg",
+    "snappng": "npm run build && node dist/index.js --config data/config.json --defaultSession --out out.png",
+    "tiny": "npm run build && node dist/index.js --fasta data/volvox/volvox.fa --bam data/volvox/volvox-sorted.bam --loc ctgA:1-5000",
+    "tinypng": "npm run build && node dist/index.js --fasta data/volvox/volvox.fa --bam data/volvox/volvox-sorted.bam --loc ctgA:1-5000 --out out.png",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
@@ -33,6 +35,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "regenerator-runtime": "^0.13.7",
+    "tmp": "^0.2.1",
     "yargs": "^16.2.0"
   },
   "publishConfig": {
