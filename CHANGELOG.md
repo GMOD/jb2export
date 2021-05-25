@@ -1,3 +1,7 @@
+# v1.3.0
+
+Update to @jbrowse/react-linear-genome-view@1.3.0
+
 # v1.2.8
 
 Add ability to automatically generate a PNG if you have rsvg-convert command installed and you supply an extension with png --out file.png
