@@ -1059,14 +1059,14 @@
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz"
   integrity sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
 
-"@gmod/bam@^1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@gmod/bam/-/bam-1.1.6.tgz"
-  integrity sha512-8E47E1C6ud7G806NFKsu2dt+tNY0Ob5en4mXjlMjNEMOtQhWWORhNVgCQDXsiDakg+0WUGboa05yfuUBGSCaJQ==
+"@gmod/bam@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@gmod/bam/-/bam-1.1.8.tgz#2e2442fbc7f1fd78b8b33455a4ee016d67e7f297"
+  integrity sha512-ZMDGj64LEpfrA86NrjFnvL2Jl5vjqL7b2oyhS0+FX0XyMwl0BITI1/ocXx5d3jyVJNy/398Bvi7ploAvJOK7/w==
   dependencies:
     "@babel/runtime-corejs3" "^7.5.5"
     "@gmod/bgzf-filehandle" "^1.3.3"
-    abortable-promise-cache "^1.2.0"
+    abortable-promise-cache "^1.4.0"
     buffer-crc32 "^0.2.13"
     cross-fetch "^3.0.2"
     es6-promisify "^6.0.1"
@@ -1203,10 +1203,10 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@jbrowse/core@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/core/-/core-1.2.0.tgz"
-  integrity sha512-oSwfSvlfedJ1pkwWAmoqXxRs6AukQOyX5YrHnX19xY5r2duUY6MUBFe6rtButl9vbOY1iS7MrlKDZRHZj9cEHQ==
+"@jbrowse/core@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/core/-/core-1.3.0.tgz#002e3430aa597bd6e1268c75cc482af25fd600cb"
+  integrity sha512-IvGlwo3bQTAqNcIPkMk6c1f4XC9ihum/ucGS6NqDX08NoVqmhydLy7xuS3Hz0Yu7nNASq7VeE9iFquYhbBm3cA==
   dependencies:
     "@librpc/web" rbuels/librpc-web#737bb9706762a52a87169a12c9b59fb241febab0
     "@material-ui/icons" "^4.0.0"
@@ -1229,7 +1229,7 @@
     load-script2 "^2.0.5"
     object.fromentries "^2.0.0"
     pako "^1.0.10"
-    react-error-boundary "^1.2.5"
+    react-error-boundary "^3.0.0"
     react-intersection-observer "^8.31.0"
     react-measure "^2.3.0"
     shortid "^2.2.13"
@@ -1237,12 +1237,12 @@
     tenacious-fetch "^2.1.0"
     util.promisify "^1.0.0"
 
-"@jbrowse/plugin-alignments@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-alignments/-/plugin-alignments-1.2.0.tgz"
-  integrity sha512-n/jr8YEGOfnWYL68Ze10VwewU8or6QSHUvtW+JH8uZq4OaYG9MemFcCd/6lTHOOvmnXQT6x/5r43s4uuZrKpQw==
+"@jbrowse/plugin-alignments@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-alignments/-/plugin-alignments-1.3.0.tgz#5c0c55bc291f79fc65d4cae51ab2be00aacffe08"
+  integrity sha512-GCAs/bWT1V820TFcImt49LBYyv97bejMyRil2D9xzeyuz9ped5X8IHi/Rl04bXBX1w2J0qM27WYQJHUpyh8Vnw==
   dependencies:
-    "@gmod/bam" "^1.1.6"
+    "@gmod/bam" "^1.1.8"
     "@gmod/cram" "^1.5.9"
     "@material-ui/icons" "^4.9.1"
     abortable-promise-cache "^1.1.3"
@@ -1262,29 +1262,29 @@
     "@gmod/bed" "^2.0.5"
     "@gmod/tabix" "^1.5.0"
 
-"@jbrowse/plugin-circular-view@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-circular-view/-/plugin-circular-view-1.2.0.tgz"
-  integrity sha512-3m4XXoJ2HxVKDDk0XG2afDPPZ2vdVfzh1Li+Ibe07FszTUauGPfvUnpPcY+iCZjmCb980jQ/dBhS8WVi3qgQQQ==
+"@jbrowse/plugin-circular-view@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-circular-view/-/plugin-circular-view-1.3.0.tgz#00ea65b4e7a03c196665f2aae1cab31ec12d032b"
+  integrity sha512-okB50rJAXFgVRWryt94JfMmQjhLSqqvc4y2OBt2QGRPJSDwlU6+KrkN5MHMERgroBfUaSHkV6Jv6ETa4iyfkeA==
   dependencies:
     "@material-ui/icons" "^4.9.1"
 
-"@jbrowse/plugin-config@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-config/-/plugin-config-1.2.0.tgz"
-  integrity sha512-JVH6alZFHU7/IbsB0BJveU9Nn65i9iihc3WDIcXdC0qd0NPIEirtTnSkBG9zjCqWlk9zaZ+cq2xSTs/g/oSzYA==
+"@jbrowse/plugin-config@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-config/-/plugin-config-1.3.0.tgz#1ff470d80ed0e724c3bcd89268456e088f0ceba5"
+  integrity sha512-M/3/ODX9jQ1xzZ1rkJ+fAHf7Jw5rQCSclEx2rpU9domplUeYxaekoiWKSXzfk4Oc89P5qv8lDDjURhlHyBdlxw==
   dependencies:
     "@material-ui/icons" "^4.9.1"
     generic-filehandle "^2.0.1"
-    pluralize "^7.0.0"
+    pluralize "^8.0.0"
     react-color "^2.19.3"
     react-simple-code-editor "0.9.3"
     react-syntax-highlighter "^14.0.0"
 
-"@jbrowse/plugin-data-management@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-data-management/-/plugin-data-management-1.2.0.tgz"
-  integrity sha512-2ORB7kVKrjkPQV+9t1Xsz31KM+6NGl2ryL8LXd5ZvYV9RR1KQmJ2Cy6Rdy8QumlrHomm3c0TMceZyaUuHwketg==
+"@jbrowse/plugin-data-management@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-data-management/-/plugin-data-management-1.3.0.tgz#aeb2c463af355942ed0168e86a51005f39d4ce0b"
+  integrity sha512-z5dmffFb7Ib9NHiUiT/nsWezxwVPZnmUo1LTrKbu77SBmR0ScSYP5iTVu6dCjDENSNCwIiGB0+FFyh6i9b6j2g==
   dependencies:
     "@gmod/ucsc-hub" "^0.1.3"
     "@material-ui/icons" "^4.9.1"
@@ -1293,19 +1293,19 @@
     react-vtree "^3.0.0-beta.1"
     react-window "^1.8.6"
 
-"@jbrowse/plugin-gff3@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-gff3/-/plugin-gff3-1.2.0.tgz"
-  integrity sha512-lwJgC6cC5NAmMeRqD1a/HqB1l5LTZ1eKJG4Gz2W/xAMBhQyF6rani2tO5VlSSKG2bxHeUSJv7U4Mp/AyOHRuqg==
+"@jbrowse/plugin-gff3@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-gff3/-/plugin-gff3-1.3.0.tgz#a1bad0ff17771f153b65e4919d1cf9e719c7c286"
+  integrity sha512-R//tK7WuULYg+OBRUV4ZyXc3e81EuvFbxCe+iLjEe6VsR+NPY134yLoO5brhlSJtACDr+3evIfrbQPVQMAaeJQ==
   dependencies:
     "@gmod/gff" "^1.1.2"
     "@gmod/tabix" "^1.5.0"
     generic-filehandle "^2.0.0"
 
-"@jbrowse/plugin-linear-genome-view@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-linear-genome-view/-/plugin-linear-genome-view-1.2.0.tgz"
-  integrity sha512-nx2dr50oYDeJxk0WLf3hCwj6Sd2ingYW8NPtwb/z/d1YsDF16/QinS/AWIH9FfKDEigRahJRYw7tbY34jf023A==
+"@jbrowse/plugin-linear-genome-view@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-linear-genome-view/-/plugin-linear-genome-view-1.3.0.tgz#c23e8b1a0a9c837238580c3ade7abc587ccc63d3"
+  integrity sha512-iqEgCEbLPEGDNxrZYgXiqywDE42E7UfNjTmrCelzvB/vLnWgp3eiNS/z+GGX9/OOcNijXvgAzmAEEW7idnpz5g==
   dependencies:
     "@material-ui/icons" "^4.9.1"
     clone "^2.1.2"
@@ -1318,10 +1318,10 @@
     rbush "^3.0.1"
     react-sizeme "^2.6.7"
 
-"@jbrowse/plugin-sequence@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-sequence/-/plugin-sequence-1.2.0.tgz"
-  integrity sha512-dd3/0ZRMrbFiK+6BSlNzR0QcNCnkZwxQkc+OO2ILFm9XlfC7iRxadzyEqAia0wzNCdu+LR5WizoIxTUY4SkuPA==
+"@jbrowse/plugin-sequence@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-sequence/-/plugin-sequence-1.3.0.tgz#4f10d8462e205917cfeae5823f6edd655c832ebb"
+  integrity sha512-cebsuyu5qKdtQW5cc7XDMLJJRpc8mStdiKXiJWZlcgFiLsR82EUw637XnbGvTVGlGQ/Zk/wcNTYSrAvgN7WyTA==
   dependencies:
     "@gmod/indexedfasta" "^2.0.0"
     "@gmod/twobit" "^1.1.10"
@@ -1329,26 +1329,26 @@
     clsx "^1.1.0"
     generic-filehandle "^2.0.1"
 
-"@jbrowse/plugin-svg@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-svg/-/plugin-svg-1.2.0.tgz"
-  integrity sha512-cgW5u6jKIkl0TFfz5saOOwI3DG7cLcQ/YIH8jYbrLttiasI3fdlwCqYYhfUpmkbYdVN4ZMeO4hMP++WjOfovPw==
+"@jbrowse/plugin-svg@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-svg/-/plugin-svg-1.3.0.tgz#37127f20905f9884e6cd537bc76f9b1585cc5be9"
+  integrity sha512-12JjhwPAr4maKP1ifdexwAarOrxQIcEHaqWW5gsm1cWmhDL9Bwy72AtbTtZy3kdoRAATBri3wq8Lhgu1swLQVw==
 
-"@jbrowse/plugin-variants@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-variants/-/plugin-variants-1.2.0.tgz"
-  integrity sha512-P/sJD2GpqNPjt5ZRYtB2mowNty5/ywSr/TQTx4qOkrJ2XQUmtBWIAHozAwHAxjMSfK1oVbEMd4NfXwhPzWNcWQ==
+"@jbrowse/plugin-variants@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-variants/-/plugin-variants-1.3.0.tgz#e853f6ba235d3547a903889ba01d878dcd82182a"
+  integrity sha512-yyHiXgpmUxgtglzVRN7hUTJYFIwKzLKfO1aGlCp1u0jXTSR10fGviPu1ERf/VjP6uR8WyFlyDvSX8bN+jkFoVA==
   dependencies:
     "@gmod/tabix" "^1.5.0"
     "@gmod/vcf" "^4.0.3"
-    "@material-ui/data-grid" "^4.0.0-alpha.20"
+    "@material-ui/data-grid" "^4.0.0-alpha.27"
     "@material-ui/icons" "^4.11.2"
     generic-filehandle "^2.0.0"
 
-"@jbrowse/plugin-wiggle@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-wiggle/-/plugin-wiggle-1.2.0.tgz"
-  integrity sha512-iOeMx+hgTmBU70kEzdcAMMv4RJrV6zgHGrhc6myq+uEn6JYRl3yyYJDxowLUpX2jsKtObknu202/hZpk1YPYyQ==
+"@jbrowse/plugin-wiggle@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/plugin-wiggle/-/plugin-wiggle-1.3.0.tgz#25feda5981b55fea86a55f02fafa6a8d5b90bb2d"
+  integrity sha512-HvNE1LFErQoWX0f1JAaxabuLVtqciNTnqKdwKLwHO0dHox/UrQXvDMX7luTgxZLjHrPXEOsDA2Go0x3mdK41rQ==
   dependencies:
     "@gmod/bbi" "^1.0.30"
     "@material-ui/icons" "^4.11.2"
@@ -1359,23 +1359,23 @@
     react-color "^2.19.3"
     react-d3-axis "^0.1.2"
 
-"@jbrowse/react-linear-genome-view@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@jbrowse/react-linear-genome-view/-/react-linear-genome-view-1.2.0.tgz"
-  integrity sha512-IWpSKJzxWHNZWzk3hjCuy75JmtYwS2K4LhroCkfKnZGwksESEKznMY2SA2bNHw5eyK6lxArMWUikRk9VGLDPCA==
+"@jbrowse/react-linear-genome-view@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@jbrowse/react-linear-genome-view/-/react-linear-genome-view-1.3.0.tgz#424571863f91428d63e5493b337880ef6fb708fd"
+  integrity sha512-YRYXB51yvh7bG+NFKZuETUoXjmhJGh0pDncdlCRrJK5acFW8DCzfXXMVwWLyU6kyN9R8z6V2HJ6F13xSVOwl6w==
   dependencies:
-    "@jbrowse/core" "^1.2.0"
-    "@jbrowse/plugin-alignments" "^1.2.0"
+    "@jbrowse/core" "^1.3.0"
+    "@jbrowse/plugin-alignments" "^1.3.0"
     "@jbrowse/plugin-bed" "^1.2.0"
-    "@jbrowse/plugin-circular-view" "^1.2.0"
-    "@jbrowse/plugin-config" "^1.2.0"
-    "@jbrowse/plugin-data-management" "^1.2.0"
-    "@jbrowse/plugin-gff3" "^1.2.0"
-    "@jbrowse/plugin-linear-genome-view" "^1.2.0"
-    "@jbrowse/plugin-sequence" "^1.2.0"
-    "@jbrowse/plugin-svg" "^1.2.0"
-    "@jbrowse/plugin-variants" "^1.2.0"
-    "@jbrowse/plugin-wiggle" "^1.2.0"
+    "@jbrowse/plugin-circular-view" "^1.3.0"
+    "@jbrowse/plugin-config" "^1.3.0"
+    "@jbrowse/plugin-data-management" "^1.3.0"
+    "@jbrowse/plugin-gff3" "^1.3.0"
+    "@jbrowse/plugin-linear-genome-view" "^1.3.0"
+    "@jbrowse/plugin-sequence" "^1.3.0"
+    "@jbrowse/plugin-svg" "^1.3.0"
+    "@jbrowse/plugin-variants" "^1.3.0"
+    "@jbrowse/plugin-wiggle" "^1.3.0"
     "@material-ui/core" "^4.9.5"
     "@material-ui/icons" "^4.0.0"
     "@material-ui/lab" "^4.0.0-alpha.45"
@@ -1562,7 +1562,7 @@
   resolved "https://registry.yarnpkg.com/@librpc/ee/-/ee-1.0.4.tgz"
   integrity sha512-vhPlbRwAKQC80h0k74tsOkMKIidZtqlFSOHRzCvC8n7Va9rzMDwpG26Pm84dAt0ZuGK0g1UEfPzxDiYo9ZQBrg==
 
-"@librpc/web@rbuels/librpc-web#737bb9706762a52a87169a12c9b59fb241febab0":
+"@librpc/web@github:rbuels/librpc-web#737bb9706762a52a87169a12c9b59fb241febab0":
   version "1.1.0"
   resolved "https://codeload.github.com/rbuels/librpc-web/tar.gz/737bb9706762a52a87169a12c9b59fb241febab0"
   dependencies:
@@ -1586,12 +1586,13 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/data-grid@^4.0.0-alpha.20":
-  version "4.0.0-alpha.22"
-  resolved "https://registry.yarnpkg.com/@material-ui/data-grid/-/data-grid-4.0.0-alpha.22.tgz"
-  integrity sha512-WiC5AzMfmSo6cdNoXxnlf6vPQBN4ZLpzewhSYat1SxwTtnjfGdoPjLsf7ho68Cau1atFjC+63lGrNE0+e/YqfQ==
+"@material-ui/data-grid@^4.0.0-alpha.27":
+  version "4.0.0-alpha.29"
+  resolved "https://registry.yarnpkg.com/@material-ui/data-grid/-/data-grid-4.0.0-alpha.29.tgz#226d267b053f43e23ce5f625239237db8b3c941a"
+  integrity sha512-dGL9nmiytpjvlY9vFJKUCtXf9eGMb0zxt5+M9hXEKYK8BOYTi+Po5y4YZp4kQ2PojFu78CDz2/gP3u51GxaF3A==
   dependencies:
     "@material-ui/utils" "^5.0.0-alpha.14"
+    clsx "^1.0.4"
     prop-types "^15.7.2"
     reselect "^4.0.0"
 
@@ -1853,6 +1854,14 @@ abortable-promise-cache@^1.0.1, abortable-promise-cache@^1.1.3, abortable-promis
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/abortable-promise-cache/-/abortable-promise-cache-1.4.0.tgz"
   integrity sha512-21Gtkd2bR9fgiomUMixnUwkV8m0kUsd3VZUXjz2scNLKv8j0esrmQgDj6LfDwUhlJidJvoFsmYX0snVFvE3j6g==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    abortcontroller-polyfill "^1.2.9"
+
+abortable-promise-cache@^1.4.0:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/abortable-promise-cache/-/abortable-promise-cache-1.4.1.tgz#92c2c56751eca38af402b07b9ba104e9a54cb69a"
+  integrity sha512-S0RbS0FPyqHcg2QXG+lYrzREpLsoZsbA3W0CIY4YHza2EKbfXcRAf5VMZRHG2BhA6UwK9EJx6OQvnW/X280/Lw==
   dependencies:
     "@babel/runtime" "^7.0.0"
     abortcontroller-polyfill "^1.2.9"
@@ -5687,11 +5696,6 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-pluralize@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz"
-  integrity sha512-ARhBOdzS3e41FbkW/XWrTEtukqqLoK5+Z/4UeDaLuSW+39JPeFgs4gCGqsrJHVZX0fUrx//4OF0K1CUGwlIFow==
-
 pluralize@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz"
@@ -5855,10 +5859,12 @@ react-dom@^17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
-react-error-boundary@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-1.2.5.tgz"
-  integrity sha512-5CPSeLJA2igJNppAgFRwnTL9aK3ojenk65enNzhVyoxYNbHpIJXnChUO7+4vPhkncRA9wvQMXq6Azp2XeXd+iQ==
+react-error-boundary@^3.0.0:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-3.1.3.tgz#276bfa05de8ac17b863587c9e0647522c25e2a0b"
+  integrity sha512-A+F9HHy9fvt9t8SNDlonq01prnU8AmkjvGKV4kk8seB9kU3xMEO8J/PQlLVmoOIDODl5U2kufSBs4vrWIqhsAA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 react-intersection-observer@^8.31.0:
   version "8.31.1"
