@@ -6,8 +6,8 @@ Static exports of JBrowse 2 rendering.
 
 You don't need to have JBrowse 2 installed to use this tool. The tool can generate images using files on your hard drive or from remote files. So, all you need to run this tool is
 
-- NodeJS v10 or greater
-- Some files that you want to visualize!
+- NodeJS v12+
+
 
 ## Screenshot
 
@@ -20,8 +20,10 @@ More examples [EXAMPLES.md](EXAMPLES.md)
 You can install the `@jbrowse/img` package from npm, which, if your node is configured in a typical configuration, will then have a command `jb2export` in your path
 
 ```bash
-npm install -g @jbrowse/img ## may need to add --legacy-peer-deps flag also
+npm install -g @jbrowse/img 
 ```
+
+If you are using npm version 7+ (released 2021) you may also need to add `--legacy-peer-deps`
 
 If you are a developer and want to modify the code, see [developer
 guide](DEVELOPER.md) for details
