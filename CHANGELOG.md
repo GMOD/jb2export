@@ -1,4 +1,4 @@
-# v1.3.1
+# v1.3.2
 
 - Update to @jbrowse/react-linear-genome-view@1.3.2
 
