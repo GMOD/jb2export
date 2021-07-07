@@ -299,7 +299,7 @@ export async function renderRegion(opts = {}) {
     const assembly = assemblyManager.assemblies[0];
     const region = assembly.regions[0];
     if (region) {
-      view.setDisplayedRegions([getSnapshot(region)]);
+      view.setDisplayedRegions([region]);
     }
     if (loc === "all") {
       view.showAllRegionsInAssembly(assembly.name);
