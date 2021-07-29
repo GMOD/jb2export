@@ -50,7 +50,9 @@ samtools index yourfile.bam
 jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000
 ```
 
-The file out.svg is created by default, use --out to customize. If a filename
+### Generate PNG instead of SVG
+
+The file out.svg is created by default, or whatever is passed to --out flag. If a filename
 with a png extension is supplied to --out then the tool tries to convert to png
 automatically using rsvg-convert (can be installed on some systems with `sudo apt install librsvg2-bin`)
 
