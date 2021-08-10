@@ -47,14 +47,22 @@ samtools index yourfile.bam
 
 
 ## simple rendering of a your local files
-jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000
+jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000 --out file.svg
 ```
+
+If `--out` is not specified it writes to out.svg
+
 
 ### Generate PNG instead of SVG
 
-The file out.svg is created by default, or whatever is passed to --out flag. If a filename
-with a png extension is supplied to --out then the tool tries to convert to png
-automatically using rsvg-convert (can be installed on some systems with `sudo apt install librsvg2-bin`)
+If a filename with a png extension is supplied to `--out` then the tool tries to convert to png
+automatically using rsvg-convert (you will need to install this to your system e.g. with `sudo apt install librsvg2-bin`)
+
+```
+jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000 --out file.png
+```
+
+You can also manually convert the svg to png in other ways (see end of this README)
 
 ### Use with remote files
 
