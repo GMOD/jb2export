@@ -1,3 +1,7 @@
+# v1.3.5
+
+- Add pdf export functionality
+
 # v1.3.4
 
 - Update to @jbrowse/react-linear-genome-view@1.3.5
