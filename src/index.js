@@ -158,6 +158,26 @@ time(() =>
       console.log(`rsvg-convert stderr: ${ls.stderr.toString()}`);
       console.log(`rsvg-convert stdout: ${ls.stdout.toString()}`);
       fs.unlinkSync(tmpobj.name);
+    } else if (outfile.endsWith(".pdf")) {
+      const tmpobj = tmp.fileSync({
+        mode: 0o644,
+        prefix: "prefix-",
+        postfix: ".svg",
+      });
+      fs.writeFileSync(tmpobj.name, result);
+      const ls = spawnSync("rsvg-convert", [
+        "-w",
+        args.pngwidth || 2048,
+        tmpobj.name,
+        "-f",
+        "pdf",
+        "-o",
+        outfile,
+      ]);
+
+      console.log(`rsvg-convert stderr: ${ls.stderr.toString()}`);
+      console.log(`rsvg-convert stdout: ${ls.stdout.toString()}`);
+      fs.unlinkSync(tmpobj.name);
     } else {
       fs.writeFileSync(outfile, result);
     }

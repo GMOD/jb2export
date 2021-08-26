@@ -8,7 +8,6 @@ You don't need to have JBrowse 2 installed to use this tool. The tool can genera
 
 - NodeJS v12+
 
-
 ## Screenshot
 
 ![](img/1.png)
@@ -20,7 +19,7 @@ More examples [EXAMPLES.md](EXAMPLES.md)
 You can install the `@jbrowse/img` package from npm, which, if your node is configured in a typical configuration, will then have a command `jb2export` in your path
 
 ```bash
-npm install -g @jbrowse/img 
+npm install -g @jbrowse/img
 ```
 
 If you are using npm version 7+ (released 2021) you may also need to add `--legacy-peer-deps`
@@ -52,17 +51,16 @@ jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000 
 
 If `--out` is not specified it writes to out.svg
 
+### Generate PDF of PNG instead of SVG
 
-### Generate PNG instead of SVG
-
-If a filename with a png extension is supplied to `--out` then the tool tries to convert to png
-automatically using rsvg-convert (you will need to install this to your system e.g. with `sudo apt install librsvg2-bin`)
+If a filename with a `pdf` or `png` extension is supplied to `--out` then the
+tool tries to convert from svg to pdf/png using rsvg-convert (you will need to
+install rsvg-convert to your system e.g. with `sudo apt install librsvg2-bin`)
 
 ```
 jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000 --out file.png
+jb2export --fasta yourfile.fa --bam yourfile.bam --loc chr1:1,000,000-1,001,000 --out file.pdf
 ```
-
-You can also manually convert the svg to png in other ways (see end of this README)
 
 ### Use with remote files
 

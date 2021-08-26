@@ -25,6 +25,8 @@
     "preversion": "npm run build",
     "snap": "npm run build && node dist/index.js --config data/config.json --defaultSession --out out.svg",
     "snappng": "npm run build && node dist/index.js --config data/config.json --defaultSession --out out.png",
+    "snappdf": "npm run build && node dist/index.js --config data/config.json --defaultSession --out out.pdf",
+    "snapjpg": "npm run build && node dist/index.js --config data/config.json --defaultSession --out out.jpg",
     "tiny": "npm run build && node dist/index.js --fasta data/volvox/volvox.fa --bam data/volvox/volvox-sorted.bam --loc ctgA:1-5000",
     "tinypng": "npm run build && node dist/index.js --fasta data/volvox/volvox.fa --bam data/volvox/volvox-sorted.bam --loc ctgA:1-5000 --out out.png",
     "postversion": "git push --follow-tags"
