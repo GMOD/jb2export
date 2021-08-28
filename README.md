@@ -2,17 +2,20 @@
 
 Static exports of JBrowse 2 rendering.
 
-## Prerequisites
-
-You don't need to have JBrowse 2 installed to use this tool. The tool can generate images using files on your hard drive or from remote files. So, all you need to run this tool is
-
-- NodeJS v12+
 
 ## Screenshot
 
 ![](img/1.png)
 
 More examples [EXAMPLES.md](EXAMPLES.md)
+
+
+## Prerequisites
+
+
+- NodeJS v12+
+
+Technically, you don't even need to have JBrowse 2 installed to use this tool, just see setup steps below: it works entirely as a command line program without any web server or external JBrowse 2 setup
 
 ## Setup
 
